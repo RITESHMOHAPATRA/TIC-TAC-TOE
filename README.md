@@ -1,2 +1,2 @@
 # TIC-TAC-TOE
-A Tic tac toe game made with python
+A Tic tac toe game made with python and Java
