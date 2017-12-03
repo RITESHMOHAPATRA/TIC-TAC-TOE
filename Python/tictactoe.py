@@ -1,29 +1,21 @@
+# -*- coding: utf-8 -*-      ##because of use of extensive UTF-8 characters as normal variable
 import random
 
 def drawBoard(board):
      # This function prints out the board that it was passed.
   # "board" is a list of 10 strings representing the board (ignore index 0)
-    print('   |   |')
     print(' ' + board[7] + ' | ' + board[8] + ' | ' + board[9])
-    print('   |   |')
     print('-----------')
-    print('   |   |')
     print(' ' + board[4] + ' | ' + board[5] + ' | ' + board[6])
-    print('   |   |')
     print('-----------')
-    print('   |   |')
     print(' ' + board[1] + ' | ' + board[2] + ' | ' + board[3])
-    print('   |   |')
     
     
 
 def inputPlayerLetter():
-    #lets the player to choose X or O
-    letter=''
-    while not(letter=='X' or letter=='O'):
-        print "Do you want to be X or O?"
-        letter=input().upper()
-    #assigning letter 
+    print "Do you want to be X or O"
+    letter = raw_input('>')
+    letter = letter.upper()
     if letter == 'X':
         return ['X','O']
     else:
@@ -39,8 +31,14 @@ def whoGoesFirst():
 
 def playAgain():
     # func eturn true if player wants to play again
-    print "Do tou want to play again (yes or no)?"
-    return input().lower().startswith('y')
+    print "Do you want to play again (Y or N)?"
+    flag = raw_input()
+    if(flag == 'Y'):
+        return True
+    else:
+        return False
+
+
 
 
 def makeMove(board, letter, move):
@@ -63,21 +61,25 @@ def isWinner(bo, le):
 def getBoardCopy(board):
     #make a duplicate of the board
     dupboard=[]
-    for i in dupboard:
+    for i in board:
         dupboard.append(i)
     return dupboard
     
 def isSpaceFree(board, move):
     #Return true if the passed move is free on the passed board.
-    return board[move] == ' '
+    return board[move] == '-'
     
 def getPlayerMove(board):
     #Let the player type in their move.
-    move = ' '
-    while move not in '1 2 3 4 5 6 7 8 9'.split() or not isSpaceFree(board, int(move)):
-        print('What is your next move? (1-9)')
-        move = input()
-    return int(move)
+    print "What is your next move? (1-9)"
+    Flag = True
+    while Flag:
+        move = int(raw_input())
+        if move not in [1,2,3,4,5,6,7,8,9] or not isSpaceFree(board,move):
+            print 'Invalid move! \nPlease re enter move'
+        else:
+            Flag = False
+    return move
     
     
 def chooseRandomMoveFromList(board, movesList):
@@ -93,11 +95,11 @@ def chooseRandomMoveFromList(board, movesList):
         return None
         
         
-def getComputerMove(board, computerLetter):
-    if computerLetter == 'X':
-       playerLetter = 'O'
+def getComputerMove(board, playerLetter):
+    if playerLetter == 'X':
+       computerLetter = 'O'
     else:
-       playerLetter = 'X'
+       computerLetter = 'X'
     # Here is our algorithm for our Tic Tac Toe AI:
     # First, check if we can win in the next move
     for i in range(1, 10):
@@ -135,10 +137,10 @@ def isBoardFull(board):
     return True
 
         
-print "WELCOME TO TIC TC TOE GAME MADE BY - RKM"
+print "WELCOME TO TIC TAC TOE GAME MADE BY - RKM"
 while True:
     # Reset the board
-    theBoard = [' '] * 10
+    theBoard = ['-'] * 10
     playerLetter, computerLetter = inputPlayerLetter()
     turn = whoGoesFirst()
     print('The ' + turn + ' will go first.')
@@ -150,6 +152,7 @@ while True:
             drawBoard(theBoard)
             move = getPlayerMove(theBoard)
             makeMove(theBoard, playerLetter, move)
+            
 
             if isWinner(theBoard, playerLetter):
                 drawBoard(theBoard)
@@ -159,24 +162,24 @@ while True:
                 if isBoardFull(theBoard):
                    drawBoard(theBoard)
                    print('The game is a tie!')
-                   break
+                   gameIsPlaying = False
                 else:
                    turn = 'computer'
 
         else:
             # Computer’s turn.
-            move = getComputerMove(theBoard, computerLetter)
+            move = getComputerMove(theBoard, playerLetter)
             makeMove(theBoard, computerLetter, move)
 
             if isWinner(theBoard, computerLetter):
-               drawBoard(theBoard)
+               drawBoard(theBoard) 
                print('The computer has beaten you! You lose.')
                gameIsPlaying = False
             else:
                 if isBoardFull(theBoard):
-                   drawBoard(theBoard)
+                   drawBoard(theBoard) 
                    print('The game is a tie!')
-                   break
+                   gameIsPlaying = False
                 else:
                    turn = 'player'
 
