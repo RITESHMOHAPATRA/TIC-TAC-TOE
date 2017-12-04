@@ -9,6 +9,8 @@ font = pygame.font.SysFont("comicsansms", 72)
 board.initialize()
 while not done:
         for event in pygame.event.get():
+            mouse = pygame.mouse.get_pos() 
+            click = pygame.mouse.get_pressed()
             if event.type == pygame.QUIT or event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE:
                 done = True
             if event.type == pygame.KEYUP and event.key == pygame.K_KP1 or event.type == pygame.KEYUP and event.key == pygame.K_1:
@@ -29,5 +31,7 @@ while not done:
                 board.nxt_turn(8)
             if event.type == pygame.KEYUP and event.key == pygame.K_KP9 or event.type == pygame.KEYUP and event.key == pygame.K_9:
                 board.nxt_turn(9)
+            if 100>mouse[0]>20 and 100>mouse[1]>20 and click[0] == 1:
+                board.nxt_turn(7)
 
         pygame.display.flip()
