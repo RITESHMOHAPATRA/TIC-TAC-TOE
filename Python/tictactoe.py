@@ -4,7 +4,6 @@ import pygame
 
 class Board(object):    
     def __init__(self):
-        self.theBoard = ['-']*10
         self.screen = pygame.display.set_mode((300, 300))
         self.color = (100, 100, 200)
         self.black = (0,0,0)
@@ -128,6 +127,7 @@ class Board(object):
 
     def initialize(self):
         self.screen.fill(self.black)
+        self.theBoard = ['-']*10
         pygame.draw.rect(self.screen, self.color, pygame.Rect(10, 10, 100, 10))
         pygame.draw.rect(self.screen, self.color, pygame.Rect(10, 10, 10, 100))
         pygame.draw.rect(self.screen, self.color, pygame.Rect(100, 10, 10, 100))
@@ -168,20 +168,22 @@ class Board(object):
     def nxt_turn(self,position):
         self.makeMove(0,'X',position)
         if self.isWinner(self.getBoardCopy(),'X'):
-            self.display_game_over('Player')
-            return
+            # self.display_game_over('Player')
+            return 'Player'
         else:
             if self.isBoardFull(self.getBoardCopy()):
-                self.display_game_over(0)
-                return
+                # self.display_game_over(0)
+                return 0
         self.makeMove(0,'O',self.getComputerMove(self.getBoardCopy()))
         if self.isWinner(self.getBoardCopy(),'O'):
-            self.display_game_over('Computer')
-            return
+            # self.display_game_over('Computer')
+            return 'Computer'
         else:
             if self.isBoardFull(self.getBoardCopy()):
-                self.display_game_over(0)
-                return
+                # self.display_game_over(0)
+                return 0
+
+        return 'ongoing'
 
     def display_game_over(self, winner):
         surface_size = self.screen.get_height()
@@ -213,4 +215,31 @@ class Board(object):
             pygame.draw.rect(self.screen, self.red,(175,200,100,75))
         # pygame.display.update()
         # clock.tick(15) 
+
+    def last_menu(self,player,x,y):
+        self.screen.fill(self.white)
+        surface_size = self.screen.get_height()
+        font = pygame.font.Font('freesansbold.ttf', surface_size/8)
+        if player:
+            text = '%s won!' % player
+        else:
+            text = 'Draw!'
+        text = font.render(text, True,self.black, self.white)
+        rect = text.get_rect()
+        rect.center = (surface_size / 2, 30)
+        self.screen.blit(text, rect)
+
+        text2 = font.render("Play Again?", True,self.black,self.white)
+        rect2 = text2.get_rect()
+        rect2.center = (surface_size/2,100)
+        self.screen.blit(text2,rect2)
+
+        if 125 > x > 25 and 275 > y > 200:
+            pygame.draw.rect(self.screen, self.bright_green,(25,200,100,75))
+        else:
+            pygame.draw.rect(self.screen, self.green,(25,200,100,75))
+        if 275 > x > 175 and 275 > y > 200:
+            pygame.draw.rect(self.screen, self.bright_red,(175,200,100,75))
+        else:
+            pygame.draw.rect(self.screen, self.red,(175,200,100,75))
 
