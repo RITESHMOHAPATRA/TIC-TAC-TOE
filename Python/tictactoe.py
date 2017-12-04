@@ -12,7 +12,7 @@ class Board(object):
         self.green = (0,200,0)
         self.bright_red = (255,0,0)
         self.bright_green = (0,255,0) 
-
+        self.marker = 'O'
     def makeMove(self,copy,letter, position):
         if not copy:
             self.theBoard[position] = letter
@@ -165,7 +165,7 @@ class Board(object):
         pygame.draw.rect(self.screen, self.color, pygame.Rect(280, 190, 10, 90))
         pygame.draw.rect(self.screen, self.color, pygame.Rect(190, 280, 100, 10)) 
 
-    def nxt_turn(self,position):
+    def nxt_turn1(self,position):
         self.makeMove(0,'X',position)
         if self.isWinner(self.getBoardCopy(),'X'):
             # self.display_game_over('Player')
@@ -178,6 +178,25 @@ class Board(object):
         if self.isWinner(self.getBoardCopy(),'O'):
             # self.display_game_over('Computer')
             return 'Computer'
+        else:
+            if self.isBoardFull(self.getBoardCopy()):
+                # self.display_game_over(0)
+                return 0
+
+        return 'ongoing'
+
+    def nxt_turn2(self,position):
+        if(self.marker == 'X'):
+            self.marker = 'O'
+        elif(self.marker == 'O'):
+            self.marker = 'X'
+        self.makeMove(0,self.marker,position)
+        if self.isWinner(self.getBoardCopy(),self.marker):
+            # self.display_game_over('Player')
+            if self.marker == 'X':
+                return 'Player1'
+            if self.marker == 'O':
+                return 'Player2'
         else:
             if self.isBoardFull(self.getBoardCopy()):
                 # self.display_game_over(0)
@@ -200,19 +219,43 @@ class Board(object):
     def first_menu(self,x,y):
         self.screen.fill(self.white)
         surface_size = self.screen.get_height()
-        font = pygame.font.Font('freesansbold.ttf', surface_size / 8)
+        font = pygame.font.Font('freesansbold.ttf', 45)
+        font2 = pygame.font.Font('freesansbold.ttf', 35)
+        font3 = pygame.font.Font('freesansbold.ttf', 20)
         text = font.render('TIC-TAC-TOE', True,self.black, self.white)
         rect = text.get_rect()
-        rect.center = (surface_size / 2, 100)
+        rect.center = (150,20)
         self.screen.blit(text, rect)
-        if 125 > x > 25 and 275 > y > 200:
-            pygame.draw.rect(self.screen, self.bright_green,(25,200,100,75))
+        text5 = font3.render('GAME MODE', True,self.black, )
+        rect5 = text5.get_rect()
+        rect5.center = (150,80)
+        self.screen.blit(text5, rect5)
+
+        if 140 > x > 20 and 190 > y > 100:
+            pygame.draw.rect(self.screen, self.bright_green,(20,100,120,90))
         else:
-            pygame.draw.rect(self.screen, self.green,(25,200,100,75))
-        if 275 > x > 175 and 275 > y > 200:
-            pygame.draw.rect(self.screen, self.bright_red,(175,200,100,75))
+            pygame.draw.rect(self.screen, self.green,(20,100,120,90))
+        if 280 > x > 160 and 190 > y > 100:
+            pygame.draw.rect(self.screen, self.bright_green,(160,100,120,90))
         else:
-            pygame.draw.rect(self.screen, self.red,(175,200,100,75))
+            pygame.draw.rect(self.screen, self.green,(160,100,120,90))
+        if 210 > x > 90 and 290 > y > 200:
+            pygame.draw.rect(self.screen, self.bright_red,(90,200,120,90))
+        else:
+            pygame.draw.rect(self.screen, self.red,(90,200,120,90))
+        
+        text2 = font2.render('Vs. AI', True,self.black, )
+        rect2 = text2.get_rect()
+        rect2.center = (80,145)
+        self.screen.blit(text2, rect2)
+        text3 = font2.render('P v P', True,self.black, )
+        rect3 = text3.get_rect()
+        rect3.center = (220,145)
+        self.screen.blit(text3, rect3)
+        text4 = font2.render('Quit!', True,self.black, )
+        rect4 = text4.get_rect()
+        rect4.center = (150,245)
+        self.screen.blit(text4, rect4)
         # pygame.display.update()
         # clock.tick(15) 
 
