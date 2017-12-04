@@ -12,7 +12,7 @@ class Board(object):
         self.green = (0,200,0)
         self.bright_red = (255,0,0)
         self.bright_green = (0,255,0) 
-
+        self.marker = 'O'
     def makeMove(self,copy,letter, position):
         if not copy:
             self.theBoard[position] = letter
@@ -165,7 +165,7 @@ class Board(object):
         pygame.draw.rect(self.screen, self.color, pygame.Rect(280, 190, 10, 90))
         pygame.draw.rect(self.screen, self.color, pygame.Rect(190, 280, 100, 10)) 
 
-    def nxt_turn(self,position):
+    def nxt_turn1(self,position):
         self.makeMove(0,'X',position)
         if self.isWinner(self.getBoardCopy(),'X'):
             # self.display_game_over('Player')
@@ -178,6 +178,25 @@ class Board(object):
         if self.isWinner(self.getBoardCopy(),'O'):
             # self.display_game_over('Computer')
             return 'Computer'
+        else:
+            if self.isBoardFull(self.getBoardCopy()):
+                # self.display_game_over(0)
+                return 0
+
+        return 'ongoing'
+
+    def nxt_turn2(self,position):
+        if(self.marker == 'X'):
+            self.marker = 'O'
+        elif(self.marker == 'O'):
+            self.marker = 'X'
+        self.makeMove(0,self.marker,position)
+        if self.isWinner(self.getBoardCopy(),self.marker):
+            # self.display_game_over('Player')
+            if self.marker == 'X':
+                return 'Player1'
+            if self.marker == 'O':
+                return 'Player2'
         else:
             if self.isBoardFull(self.getBoardCopy()):
                 # self.display_game_over(0)
