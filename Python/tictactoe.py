@@ -7,12 +7,8 @@ class Board(object):
         self.theBoard = ['-']*10
         self.screen = pygame.display.set_mode((300, 300))
         self.color = (100, 100, 200)
-        self.black = (0,0,0)
-        self.white = (255,255,255)
-        self.red = (200,0,0)
-        self.green = (0,200,0)
-        self.bright_red = (255,0,0)
-        self.bright_green = (0,255,0) 
+        self.color1 = (100,200,100)
+        self.color2 = (200,100,100)
 
     def makeMove(self,copy,letter, position):
         if not copy:
@@ -25,51 +21,51 @@ class Board(object):
     def update_surface(self,letter,position):
         if letter == 'X':
             if(position == 1):
-                pygame.draw.line(self.screen, self.bright_green, (30, 210), (90, 270), 10)
-                pygame.draw.line(self.screen, self.bright_green, (30, 270), (90, 210), 10)
+                pygame.draw.line(self.screen, self.color1, (30, 210), (90, 270), 10)
+                pygame.draw.line(self.screen, self.color1, (30, 270), (90, 210), 10)
             if(position == 2):
-                pygame.draw.line(self.screen, self.bright_green, (120, 210), (180, 270), 10)
-                pygame.draw.line(self.screen, self.bright_green, (120, 270), (180, 210), 10)
+                pygame.draw.line(self.screen, self.color1, (120, 210), (180, 270), 10)
+                pygame.draw.line(self.screen, self.color1, (120, 270), (180, 210), 10)
             if(position == 3):
-                pygame.draw.line(self.screen, self.bright_green, (210, 210), (270, 270), 10)
-                pygame.draw.line(self.screen, self.bright_green, (210, 270), (270, 210), 10)
+                pygame.draw.line(self.screen, self.color1, (210, 210), (270, 270), 10)
+                pygame.draw.line(self.screen, self.color1, (210, 270), (270, 210), 10)
             if(position == 4):
-                pygame.draw.line(self.screen, self.bright_green, (30, 120), (90, 180), 10)
-                pygame.draw.line(self.screen, self.bright_green, (30, 180), (90, 120), 10)   
+                pygame.draw.line(self.screen, self.color1, (30, 120), (90, 180), 10)
+                pygame.draw.line(self.screen, self.color1, (30, 180), (90, 120), 10)   
             if(position == 5):
-                pygame.draw.line(self.screen, self.bright_green, (120, 120), (180, 180), 10)
-                pygame.draw.line(self.screen, self.bright_green, (120, 180), (180, 120), 10)
+                pygame.draw.line(self.screen, self.color1, (120, 120), (180, 180), 10)
+                pygame.draw.line(self.screen, self.color1, (120, 180), (180, 120), 10)
             if(position == 6):
-                pygame.draw.line(self.screen, self.bright_green, (210, 120), (270, 180), 10)
-                pygame.draw.line(self.screen, self.bright_green, (210, 180), (270, 120), 10)
+                pygame.draw.line(self.screen, self.color1, (210, 120), (270, 180), 10)
+                pygame.draw.line(self.screen, self.color1, (210, 180), (270, 120), 10)
             if(position == 7):
-                pygame.draw.line(self.screen, self.bright_green, (30, 30), (90, 90), 10)
-                pygame.draw.line(self.screen, self.bright_green, (30, 90), (90, 30), 10)
+                pygame.draw.line(self.screen, self.color1, (30, 30), (90, 90), 10)
+                pygame.draw.line(self.screen, self.color1, (30, 90), (90, 30), 10)
             if(position == 8):
-                pygame.draw.line(self.screen, self.bright_green, (120, 30), (180, 90), 10)
-                pygame.draw.line(self.screen, self.bright_green, (120, 90), (180, 30), 10)
+                pygame.draw.line(self.screen, self.color1, (120, 30), (180, 90), 10)
+                pygame.draw.line(self.screen, self.color1, (120, 90), (180, 30), 10)
             if(position == 9):
-                pygame.draw.line(self.screen, self.bright_green, (210, 30), (270, 90), 10)
-                pygame.draw.line(self.screen, self.bright_green, (210, 90), (270, 30), 10)
+                pygame.draw.line(self.screen, self.color1, (210, 30), (270, 90), 10)
+                pygame.draw.line(self.screen, self.color1, (210, 90), (270, 30), 10)
         if letter == 'O':
             if(position == 1):
-                pygame.draw.circle(self.screen,self.bright_red, (60,240), 30)
+                pygame.draw.circle(self.screen,self.color2, (60,240), 30)
             if(position == 2):
-                pygame.draw.circle(self.screen,self.bright_red, (150,240), 30)
+                pygame.draw.circle(self.screen,self.color2, (150,240), 30)
             if(position == 3):
-                pygame.draw.circle(self.screen,self.bright_red, (240,240), 30)
+                pygame.draw.circle(self.screen,self.color2, (240,240), 30)
             if(position == 4):
-                pygame.draw.circle(self.screen,self.bright_red, (60,150), 30)
+                pygame.draw.circle(self.screen,self.color2, (60,150), 30)
             if(position == 5):
-                pygame.draw.circle(self.screen,self.bright_red, (150,150), 30)
+                pygame.draw.circle(self.screen,self.color2, (150,150), 30)
             if(position == 6):
-                pygame.draw.circle(self.screen,self.bright_red, (240,150), 30)
+                pygame.draw.circle(self.screen,self.color2, (240,150), 30)
             if(position == 7):
-                pygame.draw.circle(self.screen,self.bright_red, (60,60), 30)
+                pygame.draw.circle(self.screen,self.color2, (60,60), 30)
             if(position == 8):
-                pygame.draw.circle(self.screen,self.bright_red, (150,60), 30)
+                pygame.draw.circle(self.screen,self.color2, (150,60), 30)
             if(position == 9):
-                pygame.draw.circle(self.screen,self.bright_red, (240,60), 30)    
+                pygame.draw.circle(self.screen,self.color2, (240,60), 30)    
 
     def isWinner(self,copy,le):
         return ((copy[7] == le and copy[8] == le and copy[9] == le) or 
@@ -127,7 +123,7 @@ class Board(object):
         return True
 
     def initialize(self):
-        self.screen.fill(self.black)
+        
         pygame.draw.rect(self.screen, self.color, pygame.Rect(10, 10, 100, 10))
         pygame.draw.rect(self.screen, self.color, pygame.Rect(10, 10, 10, 100))
         pygame.draw.rect(self.screen, self.color, pygame.Rect(100, 10, 10, 100))
@@ -194,23 +190,4 @@ class Board(object):
         rect = text.get_rect()
         rect.center = (surface_size / 2, surface_size / 2)
         self.screen.blit(text, rect)
-
-    def first_menu(self,x,y):
-        self.screen.fill(self.white)
-        surface_size = self.screen.get_height()
-        font = pygame.font.Font('freesansbold.ttf', surface_size / 8)
-        text = font.render('TIC-TAC-TOE', True,self.black, self.white)
-        rect = text.get_rect()
-        rect.center = (surface_size / 2, 100)
-        self.screen.blit(text, rect)
-        if 125 > x > 25 and 275 > y > 200:
-            pygame.draw.rect(self.screen, self.bright_green,(25,200,100,75))
-        else:
-            pygame.draw.rect(self.screen, self.green,(25,200,100,75))
-        if 275 > x > 175 and 275 > y > 200:
-            pygame.draw.rect(self.screen, self.bright_red,(175,200,100,75))
-        else:
-            pygame.draw.rect(self.screen, self.red,(175,200,100,75))
-        # pygame.display.update()
-        # clock.tick(15) 
 
