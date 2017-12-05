@@ -171,8 +171,7 @@ class Board(object):
         pygame.draw.rect(self.screen, self.color, pygame.Rect(190, 280, 100, 10)) 
 
     def nxt_turn1(self,position):
-        copy = self.getBoardCopy()
-        flag = self.isSpaceFree(copy,position)
+        flag = self.isSpaceFree(self.getBoardCopy(),position)
         if flag:
             self.makeMove(0,'X',position)
             if self.isWinner(self.getBoardCopy(),'X'):
@@ -190,19 +189,21 @@ class Board(object):
         return 'ongoing'
 
     def nxt_turn2(self,position):
-        if(self.marker == 'X'):
-            self.marker = 'O'
-        elif(self.marker == 'O'):
-            self.marker = 'X'
-        self.makeMove(0,self.marker,position)
-        if self.isWinner(self.getBoardCopy(),self.marker):
-            if self.marker == 'X':
-                return 'Player1'
-            if self.marker == 'O':
-                return 'Player2'
-        else:
-            if self.isBoardFull(self.getBoardCopy()):
-                return 0
+        flag = self.isSpaceFree(self.getBoardCopy(),position)
+        if flag:
+            if(self.marker == 'X'):
+                self.marker = 'O'
+            elif(self.marker == 'O'):
+                self.marker = 'X'
+            self.makeMove(0,self.marker,position)
+            if self.isWinner(self.getBoardCopy(),self.marker):
+                if self.marker == 'X':
+                    return 'Player1'
+                if self.marker == 'O':
+                    return 'Player2'
+            else:
+                if self.isBoardFull(self.getBoardCopy()):
+                    return 0
 
         return 'ongoing'
 
