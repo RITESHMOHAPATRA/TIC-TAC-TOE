@@ -168,19 +168,15 @@ class Board(object):
     def nxt_turn1(self,position):
         self.makeMove(0,'X',position)
         if self.isWinner(self.getBoardCopy(),'X'):
-            # self.display_game_over('Player')
             return 'Player'
         else:
             if self.isBoardFull(self.getBoardCopy()):
-                # self.display_game_over(0)
                 return 0
         self.makeMove(0,'O',self.getComputerMove(self.getBoardCopy()))
         if self.isWinner(self.getBoardCopy(),'O'):
-            # self.display_game_over('Computer')
             return 'Computer'
         else:
             if self.isBoardFull(self.getBoardCopy()):
-                # self.display_game_over(0)
                 return 0
 
         return 'ongoing'
@@ -192,14 +188,12 @@ class Board(object):
             self.marker = 'X'
         self.makeMove(0,self.marker,position)
         if self.isWinner(self.getBoardCopy(),self.marker):
-            # self.display_game_over('Player')
             if self.marker == 'X':
                 return 'Player1'
             if self.marker == 'O':
                 return 'Player2'
         else:
             if self.isBoardFull(self.getBoardCopy()):
-                # self.display_game_over(0)
                 return 0
 
         return 'ongoing'
@@ -255,9 +249,7 @@ class Board(object):
         text4 = font2.render('Quit!', True,self.black, )
         rect4 = text4.get_rect()
         rect4.center = (150,245)
-        self.screen.blit(text4, rect4)
-        # pygame.display.update()
-        # clock.tick(15) 
+        self.screen.blit(text4, rect4) 
 
     def last_menu(self,player,x,y):
         self.screen.fill(self.white)

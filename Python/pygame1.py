@@ -53,8 +53,6 @@ def game_end(value):
   			pygame.quit()
   			quit()
 
-  		# clock.tick(15)
-
 def comp_play():
 	done = False
 	board.initialize()
@@ -101,7 +99,7 @@ def comp_play():
 	                value = board.nxt_turn1(8)
 	            if 280>mouse[0]>200 and 100>mouse[1]>20 and click[0] == 1:
 	                value = board.nxt_turn1(9)
-	            # pygame.display.flip()
+	            
 		pygame.display.flip()
 		if value != 'ongoing':
 			done = True
@@ -158,7 +156,7 @@ def PVPplay():
 	                value = board.nxt_turn2(8)
 	            if 280>mouse[0]>200 and 100>mouse[1]>20 and click[0] == 1:
 	                value = board.nxt_turn2(9)
-	            # pygame.display.flip()
+
 		pygame.display.flip()
 		if value != 'ongoing':
 			done = True
