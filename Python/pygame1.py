@@ -18,7 +18,8 @@ def game_intro():
   			if event.type == pygame.QUIT:
   				pygame.quit()
   				quit()
-  		board.first_menu(mouse[0],mouse[1])
+
+  		board.first_menu(mouse[0],mouse[1])  #Co-ordinates of mouse pointer passed so that menu options can be highlighted. 
   		pygame.display.flip()
   		pygame.display.update()
   		if(click[0] == 1 and 140>mouse[0]>20 and 190>mouse[1]>100):
@@ -63,6 +64,7 @@ def comp_play():
 	            click = pygame.mouse.get_pressed()
 	            if event.type == pygame.QUIT or event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE:
 	                done = True
+	            #Input involves two methods, one by pressing keys and other by mouse input. This part is key input.
 	            if event.type == pygame.KEYUP and event.key == pygame.K_KP1 or event.type == pygame.KEYUP and event.key == pygame.K_1:
 	                value = board.nxt_turn1(1)    
 	            if event.type == pygame.KEYUP and event.key == pygame.K_KP2 or event.type == pygame.KEYUP and event.key == pygame.K_2:
@@ -81,6 +83,7 @@ def comp_play():
 	                value = board.nxt_turn1(8)
 	            if event.type == pygame.KEYUP and event.key == pygame.K_KP9 or event.type == pygame.KEYUP and event.key == pygame.K_9:
 	                value = board.nxt_turn1(9)
+	            #This part is mouse input. Functions called only if the mouse is clicked at its certain domain defined by x and y coordinates.
 	            if 100>mouse[0]>20 and 280>mouse[1]>200 and click[0] == 1:
 	                value = board.nxt_turn1(1)
 	            if 190>mouse[0]>110 and 280>mouse[1]>200 and click[0] == 1:
@@ -120,6 +123,7 @@ def PVPplay():
 	            click = pygame.mouse.get_pressed()
 	            if event.type == pygame.QUIT or event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE:
 	                done = True
+	            #Input involves two methods, one by pressing keys and other by mouse input. This part is key input.
 	            if event.type == pygame.KEYUP and event.key == pygame.K_KP1 or event.type == pygame.KEYUP and event.key == pygame.K_1:
 	                value = board.nxt_turn2(1)    
 	            if event.type == pygame.KEYUP and event.key == pygame.K_KP2 or event.type == pygame.KEYUP and event.key == pygame.K_2:
@@ -138,6 +142,7 @@ def PVPplay():
 	                value = board.nxt_turn2(8)
 	            if event.type == pygame.KEYUP and event.key == pygame.K_KP9 or event.type == pygame.KEYUP and event.key == pygame.K_9:
 	                value = board.nxt_turn2(9)
+	            #This part is mouse input. Functions called only if the mouse is clicked at its certain domain defined by x and y coordinates.
 	            if 100>mouse[0]>20 and 280>mouse[1]>200 and click[0] == 1:
 	                value = board.nxt_turn2(1)
 	            if 190>mouse[0]>110 and 280>mouse[1]>200 and click[0] == 1:

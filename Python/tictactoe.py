@@ -22,6 +22,8 @@ class Board(object):
             return copy
                 
     def update_surface(self,letter,position):
+        #All the X's and O's carefully set to be in the center of their respective boxes.
+        #O's are basic circles whereas X's are combination of two lines for better visual effect.
         if letter == 'X':
             if(position == 1):
                 pygame.draw.line(self.screen, self.bright_green, (30, 210), (90, 270), 10)
@@ -71,6 +73,7 @@ class Board(object):
                 pygame.draw.circle(self.screen,self.bright_red, (240,60), 30)    
 
     def isWinner(self,copy,le):
+        #Checking of each possible winning combination.
         return ((copy[7] == le and copy[8] == le and copy[9] == le) or 
             (copy[4] == le and copy[5] == le and copy[6] == le) or 
             (copy[1] == le and copy[2] == le and copy[3] == le) or 
@@ -128,6 +131,8 @@ class Board(object):
     def initialize(self):
         self.screen.fill(self.black)
         self.theBoard = ['-']*10
+        #Each square of the game grid is made by four lines of 10 pixel density each. 
+        #The original rectangle function isnt used because it creates blurred pixels on the edges which is not visually attractive. 
         pygame.draw.rect(self.screen, self.color, pygame.Rect(10, 10, 100, 10))
         pygame.draw.rect(self.screen, self.color, pygame.Rect(10, 10, 10, 100))
         pygame.draw.rect(self.screen, self.color, pygame.Rect(100, 10, 10, 100))
@@ -210,7 +215,7 @@ class Board(object):
         rect.center = (surface_size / 2, surface_size / 2)
         self.screen.blit(text, rect)
 
-    def first_menu(self,x,y):
+    def first_menu(self,x,y):       #The function calling is handled by pygame1.py file. This menu is just the graphical interface required for the same. Hence, no function calling done.
         self.screen.fill(self.white)
         surface_size = self.screen.get_height()
         font = pygame.font.Font('freesansbold.ttf', 45)
