@@ -277,13 +277,20 @@ class Board(object):
         rect2 = text2.get_rect()
         rect2.center = (surface_size/2,100)
         self.screen.blit(text2,rect2)
-
+    
+        text3 = font.render("Yes", True,self.black,self.green)
+        text4 = font.render("No", True,self.black,self.red)
+        
         if 125 > x > 25 and 275 > y > 200:
+            text3 = font.render("Yes", True,self.black,self.bright_green)
             pygame.draw.rect(self.screen, self.bright_green,(25,200,100,75))
         else:
             pygame.draw.rect(self.screen, self.green,(25,200,100,75))
         if 275 > x > 175 and 275 > y > 200:
+            text4 = font.render("No", True,self.black,self.bright_red)
             pygame.draw.rect(self.screen, self.bright_red,(175,200,100,75))
         else:
             pygame.draw.rect(self.screen, self.red,(175,200,100,75))
+        self.screen.blit(text3, (40, 220))
+        self.screen.blit(text4, (200, 220))
 

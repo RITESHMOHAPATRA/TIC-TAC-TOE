@@ -1,6 +1,6 @@
 import pygame
 from tictactoe import Board
-
+#initialization
 pygame.init()
 board = Board()
 clock = pygame.time.Clock()
@@ -22,13 +22,13 @@ def game_intro():
   		board.first_menu(mouse[0],mouse[1])  #Co-ordinates of mouse pointer passed so that menu options can be highlighted. 
   		pygame.display.flip()
   		pygame.display.update()
-  		if(click[0] == 1 and 140>mouse[0]>20 and 190>mouse[1]>100):
+  		if(click[0] == 1 and 140>mouse[0]>20 and 190>mouse[1]>100): #getting the click from the user if he selected vs AI
   			comp_play()
   			intro = False
-  		if(click[0] == 1 and 280>mouse[0]>160 and 190>mouse[1]>100):
+  		if(click[0] == 1 and 280>mouse[0]>160 and 190>mouse[1]>100): #getting the click from the user if he selected Player to Player
   			PVPplay()
   			intro = False
-  		if(click[0] == 1 and 210>mouse[0]>90 and 290>mouse[1]>200):
+  		if(click[0] == 1 and 210>mouse[0]>90 and 290>mouse[1]>200): #getting the click from the user if he wants to
   			pygame.quit()
   			quit()
 
