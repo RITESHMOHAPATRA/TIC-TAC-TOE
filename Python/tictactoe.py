@@ -22,6 +22,8 @@ class Board(object):
             return copy
                 
     def update_surface(self,letter,position):
+        #All the X's and O's carefully set to be in the center of their respective boxes.
+        #O's are basic circles whereas X's are combination of two lines for better visual effect.
         if letter == 'X':
             if(position == 1):
                 pygame.draw.line(self.screen, self.bright_green, (30, 210), (90, 270), 10)
@@ -71,6 +73,7 @@ class Board(object):
                 pygame.draw.circle(self.screen,self.bright_red, (240,60), 30)    
 
     def isWinner(self,copy,le):
+        #Checking of each possible winning combination.
         return ((copy[7] == le and copy[8] == le and copy[9] == le) or 
             (copy[4] == le and copy[5] == le and copy[6] == le) or 
             (copy[1] == le and copy[2] == le and copy[3] == le) or 
@@ -128,6 +131,8 @@ class Board(object):
     def initialize(self):
         self.screen.fill(self.black)
         self.theBoard = ['-']*10
+        #Each square of the game grid is made by four lines of 10 pixel density each. 
+        #The original rectangle function isnt used because it creates blurred pixels on the edges which is not visually attractive. 
         pygame.draw.rect(self.screen, self.color, pygame.Rect(10, 10, 100, 10))
         pygame.draw.rect(self.screen, self.color, pygame.Rect(10, 10, 10, 100))
         pygame.draw.rect(self.screen, self.color, pygame.Rect(100, 10, 10, 100))
@@ -166,41 +171,39 @@ class Board(object):
         pygame.draw.rect(self.screen, self.color, pygame.Rect(190, 280, 100, 10)) 
 
     def nxt_turn1(self,position):
-        self.makeMove(0,'X',position)
-        if self.isWinner(self.getBoardCopy(),'X'):
-            # self.display_game_over('Player')
-            return 'Player'
-        else:
-            if self.isBoardFull(self.getBoardCopy()):
-                # self.display_game_over(0)
-                return 0
-        self.makeMove(0,'O',self.getComputerMove(self.getBoardCopy()))
-        if self.isWinner(self.getBoardCopy(),'O'):
-            # self.display_game_over('Computer')
-            return 'Computer'
-        else:
-            if self.isBoardFull(self.getBoardCopy()):
-                # self.display_game_over(0)
-                return 0
+        flag = self.isSpaceFree(self.getBoardCopy(),position)
+        if flag:
+            self.makeMove(0,'X',position)
+            if self.isWinner(self.getBoardCopy(),'X'):
+                return 'Player'
+            else:
+                if self.isBoardFull(self.getBoardCopy()):
+                    return 0
+            self.makeMove(0,'O',self.getComputerMove(self.getBoardCopy()))
+            if self.isWinner(self.getBoardCopy(),'O'):
+                return 'Computer'
+            else:
+                if self.isBoardFull(self.getBoardCopy()):
+                    return 0
 
         return 'ongoing'
 
     def nxt_turn2(self,position):
-        if(self.marker == 'X'):
-            self.marker = 'O'
-        elif(self.marker == 'O'):
-            self.marker = 'X'
-        self.makeMove(0,self.marker,position)
-        if self.isWinner(self.getBoardCopy(),self.marker):
-            # self.display_game_over('Player')
-            if self.marker == 'X':
-                return 'Player1'
-            if self.marker == 'O':
-                return 'Player2'
-        else:
-            if self.isBoardFull(self.getBoardCopy()):
-                # self.display_game_over(0)
-                return 0
+        flag = self.isSpaceFree(self.getBoardCopy(),position)
+        if flag:
+            if(self.marker == 'X'):
+                self.marker = 'O'
+            elif(self.marker == 'O'):
+                self.marker = 'X'
+            self.makeMove(0,self.marker,position)
+            if self.isWinner(self.getBoardCopy(),self.marker):
+                if self.marker == 'X':
+                    return 'Player1'
+                if self.marker == 'O':
+                    return 'Player2'
+            else:
+                if self.isBoardFull(self.getBoardCopy()):
+                    return 0
 
         return 'ongoing'
 
@@ -216,7 +219,7 @@ class Board(object):
         rect.center = (surface_size / 2, surface_size / 2)
         self.screen.blit(text, rect)
 
-    def first_menu(self,x,y):
+    def first_menu(self,x,y):       #The function calling is handled by pygame1.py file. This menu is just the graphical interface required for the same. Hence, no function calling done.
         self.screen.fill(self.white)
         surface_size = self.screen.get_height()
         font = pygame.font.Font('freesansbold.ttf', 45)
@@ -255,9 +258,7 @@ class Board(object):
         text4 = font2.render('Quit!', True,self.black, )
         rect4 = text4.get_rect()
         rect4.center = (150,245)
-        self.screen.blit(text4, rect4)
-        # pygame.display.update()
-        # clock.tick(15) 
+        self.screen.blit(text4, rect4) 
 
     def last_menu(self,player,x,y):
         self.screen.fill(self.white)
@@ -276,13 +277,20 @@ class Board(object):
         rect2 = text2.get_rect()
         rect2.center = (surface_size/2,100)
         self.screen.blit(text2,rect2)
-
+    
+        text3 = font.render("Yes", True,self.black,self.green)
+        text4 = font.render("No", True,self.black,self.red)
+        
         if 125 > x > 25 and 275 > y > 200:
+            text3 = font.render("Yes", True,self.black,self.bright_green)
             pygame.draw.rect(self.screen, self.bright_green,(25,200,100,75))
         else:
             pygame.draw.rect(self.screen, self.green,(25,200,100,75))
         if 275 > x > 175 and 275 > y > 200:
+            text4 = font.render("No", True,self.black,self.bright_red)
             pygame.draw.rect(self.screen, self.bright_red,(175,200,100,75))
         else:
             pygame.draw.rect(self.screen, self.red,(175,200,100,75))
+        self.screen.blit(text3, (40, 220))
+        self.screen.blit(text4, (200, 220))
 

@@ -1,6 +1,6 @@
 import pygame
 from tictactoe import Board
-
+#initialization
 pygame.init()
 board = Board()
 clock = pygame.time.Clock()
@@ -18,16 +18,17 @@ def game_intro():
   			if event.type == pygame.QUIT:
   				pygame.quit()
   				quit()
-  		board.first_menu(mouse[0],mouse[1])
+
+  		board.first_menu(mouse[0],mouse[1])  #Co-ordinates of mouse pointer passed so that menu options can be highlighted. 
   		pygame.display.flip()
   		pygame.display.update()
-  		if(click[0] == 1 and 140>mouse[0]>20 and 190>mouse[1]>100):
+  		if(click[0] == 1 and 140>mouse[0]>20 and 190>mouse[1]>100): #getting the click from the user if he selected vs AI
   			comp_play()
   			intro = False
-  		if(click[0] == 1 and 280>mouse[0]>160 and 190>mouse[1]>100):
+  		if(click[0] == 1 and 280>mouse[0]>160 and 190>mouse[1]>100): #getting the click from the user if he selected Player to Player
   			PVPplay()
   			intro = False
-  		if(click[0] == 1 and 210>mouse[0]>90 and 290>mouse[1]>200):
+  		if(click[0] == 1 and 210>mouse[0]>90 and 290>mouse[1]>200): #getting the click from the user if he wants to
   			pygame.quit()
   			quit()
 
@@ -53,8 +54,6 @@ def game_end(value):
   			pygame.quit()
   			quit()
 
-  		# clock.tick(15)
-
 def comp_play():
 	done = False
 	board.initialize()
@@ -65,6 +64,7 @@ def comp_play():
 	            click = pygame.mouse.get_pressed()
 	            if event.type == pygame.QUIT or event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE:
 	                done = True
+	            #Input involves two methods, one by pressing keys and other by mouse input. This part is key input.
 	            if event.type == pygame.KEYUP and event.key == pygame.K_KP1 or event.type == pygame.KEYUP and event.key == pygame.K_1:
 	                value = board.nxt_turn1(1)    
 	            if event.type == pygame.KEYUP and event.key == pygame.K_KP2 or event.type == pygame.KEYUP and event.key == pygame.K_2:
@@ -83,6 +83,7 @@ def comp_play():
 	                value = board.nxt_turn1(8)
 	            if event.type == pygame.KEYUP and event.key == pygame.K_KP9 or event.type == pygame.KEYUP and event.key == pygame.K_9:
 	                value = board.nxt_turn1(9)
+	            #This part is mouse input. Functions called only if the mouse is clicked at its certain domain defined by x and y coordinates.
 	            if 100>mouse[0]>20 and 280>mouse[1]>200 and click[0] == 1:
 	                value = board.nxt_turn1(1)
 	            if 190>mouse[0]>110 and 280>mouse[1]>200 and click[0] == 1:
@@ -101,7 +102,7 @@ def comp_play():
 	                value = board.nxt_turn1(8)
 	            if 280>mouse[0]>200 and 100>mouse[1]>20 and click[0] == 1:
 	                value = board.nxt_turn1(9)
-	            # pygame.display.flip()
+	            
 		pygame.display.flip()
 		if value != 'ongoing':
 			done = True
@@ -122,6 +123,7 @@ def PVPplay():
 	            click = pygame.mouse.get_pressed()
 	            if event.type == pygame.QUIT or event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE:
 	                done = True
+	            #Input involves two methods, one by pressing keys and other by mouse input. This part is key input.
 	            if event.type == pygame.KEYUP and event.key == pygame.K_KP1 or event.type == pygame.KEYUP and event.key == pygame.K_1:
 	                value = board.nxt_turn2(1)    
 	            if event.type == pygame.KEYUP and event.key == pygame.K_KP2 or event.type == pygame.KEYUP and event.key == pygame.K_2:
@@ -140,6 +142,7 @@ def PVPplay():
 	                value = board.nxt_turn2(8)
 	            if event.type == pygame.KEYUP and event.key == pygame.K_KP9 or event.type == pygame.KEYUP and event.key == pygame.K_9:
 	                value = board.nxt_turn2(9)
+	            #This part is mouse input. Functions called only if the mouse is clicked at its certain domain defined by x and y coordinates.
 	            if 100>mouse[0]>20 and 280>mouse[1]>200 and click[0] == 1:
 	                value = board.nxt_turn2(1)
 	            if 190>mouse[0]>110 and 280>mouse[1]>200 and click[0] == 1:
@@ -158,7 +161,7 @@ def PVPplay():
 	                value = board.nxt_turn2(8)
 	            if 280>mouse[0]>200 and 100>mouse[1]>20 and click[0] == 1:
 	                value = board.nxt_turn2(9)
-	            # pygame.display.flip()
+
 		pygame.display.flip()
 		if value != 'ongoing':
 			done = True
