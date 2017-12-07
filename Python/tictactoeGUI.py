@@ -48,6 +48,7 @@ class Board:
           value = self.move(x,y).__minimax(not player)[0]
           if value<best[0]:
             best = (value,(x,y))
+      print 'Best Move', best      
       return best
 
   def best(self):
