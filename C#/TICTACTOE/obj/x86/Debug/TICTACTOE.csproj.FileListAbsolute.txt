@@ -1,0 +1,7 @@
+C:\Users\246 Bangur Park\documents\visual studio 2010\Projects\TICTACTOE\TICTACTOE\bin\Debug\TICTACTOE.exe
+C:\Users\246 Bangur Park\documents\visual studio 2010\Projects\TICTACTOE\TICTACTOE\bin\Debug\TICTACTOE.pdb
+C:\Users\246 Bangur Park\documents\visual studio 2010\Projects\TICTACTOE\TICTACTOE\obj\x86\Debug\WindowsFormsApplication1.Form1.resources
+C:\Users\246 Bangur Park\documents\visual studio 2010\Projects\TICTACTOE\TICTACTOE\obj\x86\Debug\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\246 Bangur Park\documents\visual studio 2010\Projects\TICTACTOE\TICTACTOE\obj\x86\Debug\TICTACTOE.csproj.GenerateResource.Cache
+C:\Users\246 Bangur Park\documents\visual studio 2010\Projects\TICTACTOE\TICTACTOE\obj\x86\Debug\TICTACTOE.exe
+C:\Users\246 Bangur Park\documents\visual studio 2010\Projects\TICTACTOE\TICTACTOE\obj\x86\Debug\TICTACTOE.pdb
