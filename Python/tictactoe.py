@@ -103,17 +103,24 @@ class Board(object):
             return None
                
     def getComputerMove(self,copy):
+
+        tempcopy = copy[:]
+        #this is for checking if the computer can win if he does move in particular cell
         for i in range(1, 10):
-            if self.isSpaceFree(copy, i):
-                self.makeMove(copy, 'O', i)
-                if self.isWinner(copy, 'O'):
+            if self.isSpaceFree(tempcopy, i):
+                tempcopy = self.makeMove(tempcopy, 'O', i)
+                if self.isWinner(tempcopy, 'O'):
                     return i
-        copy = self.getBoardCopy()
+            tempcopy = copy[:]
+
+        #this is to check if the player will win in his next move, the computer will block this move    
         for i in range(1, 10):
-            if self.isSpaceFree(copy, i):
-                self.makeMove(copy, 'X', i)
-                if self.isWinner(copy, 'X'):
+            if self.isSpaceFree(tempcopy, i):
+                tempcopy = self.makeMove(tempcopy, 'X', i)
+                if self.isWinner(tempcopy, 'X'):
                     return i
+            tempcopy = copy[:]
+
         copy = self.getBoardCopy()    
         move = self.chooseRandomMoveFromList(copy, [1, 3, 7, 9])
         if move != None:
