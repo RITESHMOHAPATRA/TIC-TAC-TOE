@@ -40,8 +40,72 @@ namespace WindowsFormsApplication1
                     }
                 }
             }
-            MessageBox.Show("complete");
+            //MessageBox.Show("complete");
             return true;
+        }
+
+        private string aiplay(string[,] tempboard, char player)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    if (board[i, j] == "0")
+                    {
+                        if (player == 'c')
+                        {
+                            board[i, j] = "COMPUTER";
+                            if (aiplay(board, 'u') != "NULL")
+                            {
+                                board[i, j] = "0";
+                            }
+                            else
+                            {
+                                board[i, j] = "COMPUTER";
+                                setthebox(i, j);
+                                return "done";
+                            }
+                        }
+                        else if (player == 'u')
+                        {
+                            board[i, j] = "USER";
+                            if (checkifuserwon() == true)
+                            {
+                                board[i, j] = "0";
+                                return "iamwinning";
+                                //return (i.ToString() + j.ToString());
+                            }
+                            else
+                            {
+                                board[i, j] = "0";
+                            }
+                        }
+                    }
+                }
+            }
+            return "NULL";
+        }
+
+        private void setthebox(int randrow, int randcol)
+        {
+            if (randrow == 0 && randcol == 0)
+                button00.Text = "0";
+            if (randrow == 0 && randcol == 1)
+                button01.Text = "0";
+            if (randrow == 0 && randcol == 2)
+                button02.Text = "0";
+            if (randrow == 1 && randcol == 0)
+                button10.Text = "0";
+            if (randrow == 1 && randcol == 1)
+                button11.Text = "0";
+            if (randrow == 1 && randcol == 2)
+                button12.Text = "0";
+            if (randrow == 2 && randcol == 0)
+                button20.Text = "0";
+            if (randrow == 2 && randcol == 1)
+                button21.Text = "0";
+            if (randrow == 2 && randcol == 2)
+                button22.Text = "0";
         }
 
         private void computerplay()
@@ -61,24 +125,7 @@ namespace WindowsFormsApplication1
 
             board[randrow, randcol] = "COMPUTER";
 
-            if(randrow == 0 && randcol == 0)
-                button00.Text = "0";
-            if (randrow == 0 && randcol == 1)
-                button01.Text = "0";
-            if (randrow == 0 && randcol == 2)
-                button02.Text = "0";
-            if (randrow == 1 && randcol == 0)
-                button10.Text = "0";
-            if (randrow == 1 && randcol == 1)
-                button11.Text = "0";
-            if (randrow == 1 && randcol == 2)
-                button12.Text = "0";
-            if (randrow == 2 && randcol == 0)
-                button20.Text = "0";
-            if (randrow == 2 && randcol == 1)
-                button21.Text = "0";
-            if (randrow == 2 && randcol == 2)
-                button22.Text = "0";
+            setthebox(randrow, randcol);
         }
 
         private bool checkifuserwon()
@@ -127,14 +174,17 @@ namespace WindowsFormsApplication1
             if (checkifuserwon() == true)
             {
                 MessageBox.Show("USER WON!");
+                System.Windows.Forms.Application.Exit();
             }
 
             if (checkifcomplete() == false)
             {
-                computerplay();
+                //computerplay();
+                aiplay(board, 'c');
                 if (checkifcompwon() == true)
                 {
                     MessageBox.Show("COMPUTER WON!");
+                    System.Windows.Forms.Application.Exit();
                 }
             }
             else
@@ -151,14 +201,16 @@ namespace WindowsFormsApplication1
             if (checkifuserwon() == true)
             {
                 MessageBox.Show("USER WON!");
+                System.Windows.Forms.Application.Exit();
             }
 
             if (checkifcomplete() == false)
             {
-                computerplay();
+                aiplay(board, 'c');
                 if (checkifcompwon() == true)
                 {
                     MessageBox.Show("COMPUTER WON!");
+                    System.Windows.Forms.Application.Exit();
                 }
             }
             else
@@ -175,13 +227,15 @@ namespace WindowsFormsApplication1
             if (checkifuserwon() == true)
             {
                 MessageBox.Show("USER WON!");
+                System.Windows.Forms.Application.Exit();
             }
             if (checkifcomplete() == false)
             {
-                computerplay();
+                aiplay(board, 'c');
                 if (checkifcompwon() == true)
                 {
                     MessageBox.Show("COMPUTER WON!");
+                    System.Windows.Forms.Application.Exit();
                 }
             }
             else
@@ -198,13 +252,15 @@ namespace WindowsFormsApplication1
             if (checkifuserwon() == true)
             {
                 MessageBox.Show("USER WON!");
+                System.Windows.Forms.Application.Exit();
             }
             if (checkifcomplete() == false)
             {
-                computerplay();
+                aiplay(board, 'c');
                 if (checkifcompwon() == true)
                 {
                     MessageBox.Show("COMPUTER WON!");
+                    System.Windows.Forms.Application.Exit();
                 }
             }
             else
@@ -221,13 +277,15 @@ namespace WindowsFormsApplication1
             if (checkifuserwon() == true)
             {
                 MessageBox.Show("USER WON!");
+                System.Windows.Forms.Application.Exit();
             }
             if (checkifcomplete() == false)
             {
-                computerplay();
+                aiplay(board, 'c');
                 if (checkifcompwon() == true)
                 {
                     MessageBox.Show("COMPUTER WON!");
+                    System.Windows.Forms.Application.Exit();
                 }
             }
             else
@@ -244,13 +302,15 @@ namespace WindowsFormsApplication1
             if (checkifuserwon() == true)
             {
                 MessageBox.Show("USER WON!");
+                System.Windows.Forms.Application.Exit();
             }
             if (checkifcomplete() == false)
             {
-                computerplay();
+                aiplay(board, 'c');
                 if (checkifcompwon() == true)
                 {
                     MessageBox.Show("COMPUTER WON!");
+                    System.Windows.Forms.Application.Exit();
                 }
             }
             else
@@ -267,13 +327,15 @@ namespace WindowsFormsApplication1
             if (checkifuserwon() == true)
             {
                 MessageBox.Show("USER WON!");
+                System.Windows.Forms.Application.Exit();
             }
             if (checkifcomplete() == false)
             {
-                computerplay();
+                aiplay(board, 'c');
                 if (checkifcompwon() == true)
                 {
                     MessageBox.Show("COMPUTER WON!");
+                    System.Windows.Forms.Application.Exit();
                 }
             }
             else
@@ -290,13 +352,15 @@ namespace WindowsFormsApplication1
             if (checkifuserwon() == true)
             {
                 MessageBox.Show("USER WON!");
+                System.Windows.Forms.Application.Exit();
             }
             if (checkifcomplete() == false)
             {
-                computerplay();
+                aiplay(board, 'c');
                 if (checkifcompwon() == true)
                 {
                     MessageBox.Show("COMPUTER WON!");
+                    System.Windows.Forms.Application.Exit();
                 }
             }
             else
@@ -313,13 +377,15 @@ namespace WindowsFormsApplication1
             if (checkifuserwon() == true)
             {
                 MessageBox.Show("USER WON!");
+                System.Windows.Forms.Application.Exit();
             }
             if (checkifcomplete() == false)
             {
-                computerplay();
+                aiplay(board, 'c');
                 if (checkifcompwon() == true)
                 {
                     MessageBox.Show("COMPUTER WON!");
+                    System.Windows.Forms.Application.Exit();
                 }
             }
             else

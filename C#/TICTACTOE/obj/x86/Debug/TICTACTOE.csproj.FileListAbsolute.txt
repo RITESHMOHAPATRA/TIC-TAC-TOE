@@ -5,3 +5,4 @@ C:\Users\246 Bangur Park\documents\visual studio 2010\Projects\TICTACTOE\TICTACT
 C:\Users\246 Bangur Park\documents\visual studio 2010\Projects\TICTACTOE\TICTACTOE\obj\x86\Debug\TICTACTOE.csproj.GenerateResource.Cache
 C:\Users\246 Bangur Park\documents\visual studio 2010\Projects\TICTACTOE\TICTACTOE\obj\x86\Debug\TICTACTOE.exe
 C:\Users\246 Bangur Park\documents\visual studio 2010\Projects\TICTACTOE\TICTACTOE\obj\x86\Debug\TICTACTOE.pdb
+C:\Users\246 Bangur Park\documents\visual studio 2010\Projects\TICTACTOE\TICTACTOE\obj\x86\Debug\TICTACTOE.csprojResolveAssemblyReference.cache
