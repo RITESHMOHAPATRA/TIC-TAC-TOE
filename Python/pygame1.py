@@ -23,6 +23,7 @@ def game_intro():
   				print 'Exit 1'
   				quit()
   		#load the main manu based screen, asking user to select whom he has to play with AI,PvP or Quit		
+
   		board.first_menu(mouse[0],mouse[1])  #Co-ordinates of mouse pointer passed so that menu options can be highlighted. 
   		pygame.display.flip()
 
@@ -38,7 +39,9 @@ def game_intro():
   		if(click[0] == 1 and 280>mouse[0]>160 and 190>mouse[1]>100): #getting the click from the user if he selected Player to Player
   			PVPplay()
   			intro = False
+        
   		if(click[0] == 1 and 210>mouse[0]>90 and 290>mouse[1]>200): #getting the click from the user if he wants to quit
+  		if(click[0] == 1 and 210>mouse[0]>90 and 290>mouse[1]>200): #getting the click from the user if he wants to
   			pygame.quit()
   			print 'Exit 2'
   			quit()
@@ -103,6 +106,7 @@ def comp_play():
 	            if event.type == pygame.QUIT or event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE:
 	                done = True
 	            #This part is key input.
+	            #Input involves two methods, one by pressing keys and other by mouse input. This part is key input.
 	            if event.type == pygame.KEYUP and event.key == pygame.K_KP1 or event.type == pygame.KEYUP and event.key == pygame.K_1:
 	                value = board.nxt_turn1(1)    
 	            if event.type == pygame.KEYUP and event.key == pygame.K_KP2 or event.type == pygame.KEYUP and event.key == pygame.K_2:
@@ -166,6 +170,7 @@ def PVPplay():
 	            if event.type == pygame.QUIT or event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE:
 	                done = True
 	            #This part is key input.
+	            #Input involves two methods, one by pressing keys and other by mouse input. This part is key input.
 	            if event.type == pygame.KEYUP and event.key == pygame.K_KP1 or event.type == pygame.KEYUP and event.key == pygame.K_1:
 	                value = board.nxt_turn2(1)    
 	            if event.type == pygame.KEYUP and event.key == pygame.K_KP2 or event.type == pygame.KEYUP and event.key == pygame.K_2:
