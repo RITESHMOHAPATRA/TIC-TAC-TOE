@@ -83,6 +83,13 @@ class Board(object):
             (copy[8] == le and copy[5] == le and copy[2] == le) or     #check vertical second column     
             (copy[9] == le and copy[6] == le and copy[3] == le) or     #check vertical last column
             (copy[7] == le and copy[5] == le and copy[3] == le) or     #check diagonal 
+        return ((copy[7] == le and copy[8] == le and copy[9] == le) or 
+            (copy[4] == le and copy[5] == le and copy[6] == le) or 
+            (copy[1] == le and copy[2] == le and copy[3] == le) or 
+            (copy[7] == le and copy[4] == le and copy[1] == le) or 
+            (copy[8] == le and copy[5] == le and copy[2] == le) or 
+            (copy[9] == le and copy[6] == le and copy[3] == le) or 
+            (copy[7] == le and copy[5] == le and copy[3] == le) or 
             (copy[9] == le and copy[5] == le and copy[1] == le)) 
                 
     def getBoardCopy(self):
@@ -108,7 +115,7 @@ class Board(object):
     #get a move from computer while playing with AI           
     def getComputerMove(self,copy):
         tempcopy = copy[:] #creating a local copy because (refrence updates the copy with each for loop and wrong checking is done) 
-
+        tempcopy = copy[:]
         #this is for checking if the computer can win if he does move in particular cell
         for i in range(1, 10):
             if self.isSpaceFree(tempcopy, i):
@@ -126,6 +133,7 @@ class Board(object):
             tempcopy = copy[:]
 
         #select random move if both the checks donot return the move    
+
         copy = self.getBoardCopy()    
         move = self.chooseRandomMoveFromList(copy, [1, 3, 7, 9])
         if move != None:
@@ -198,6 +206,7 @@ class Board(object):
             else:
                 if self.isBoardFull(self.getBoardCopy()):
                     return 0
+
         return 'ongoing'
 
     #while playing PvP mode this function is called to get both the player's move    
@@ -237,6 +246,8 @@ class Board(object):
     This menu is just the graphical interface required for the same. Hence, no function calling done.
     '''
     def first_menu(self,x,y):       
+
+    def first_menu(self,x,y):       #The function calling is handled by pygame1.py file. This menu is just the graphical interface required for the same. Hence, no function calling done.
         self.screen.fill(self.white)
         surface_size = self.screen.get_height()
         font = pygame.font.Font('freesansbold.ttf', 45)
