@@ -52,8 +52,10 @@ def game_end(value):
 	end = True
 
 	while end:
+		
 		mouse = pygame.mouse.get_pos()
   		click = pygame.mouse.get_pressed() 
+
   		for event in pygame.event.get():
   			if event.type == pygame.QUIT:
   				pygame.quit()
@@ -64,31 +66,28 @@ def game_end(value):
   		pygame.display.update()
 
   		#remove the bug of mouse getting already clcked by the user	
-  		clock=pygame.time.Clock() #wait before taking the next mouse click (solved the problem of click getting saved)
-		clock.tick(60)
 		lst = list(click)
   		lst[0] = 0
   		click = tuple(lst)
   		lst = list(mouse)
-  		lst[0] = 0
-  		lst[1] = 0
+  		lst[0] = 150
+  		lst[1] = 150
   		mouse = tuple(lst)
-		print 'click = ', click[0]
-  		mouse = pygame.mouse.get_pos()
-  		#click = pygame.mouse.get_pressed() 
- 				
+
   		#If yes the show the first screen
-  		if(125>mouse[0]>25 and 275>mouse[1]>200):
-  			click = pygame.mouse.get_pressed() #even this seems not to work
-  			if(click[0] == 1):
-  				game_intro()
-  				end = False
-  		#If no then exit	
-  		if(275>mouse[0]>175 and 275>mouse[1]>200):
-  			click = pygame.mouse.get_pressed()
-  			if(click[0] == 1):
-  				pygame.quit()
-  				quit()
+  		if(mouse[0] == 150 and mouse[1] == 150 and click[0] == 0):
+  			clock=pygame.time.Clock() #wait before taking the next mouse click (solved the problem of click getting saved)
+			clock.tick(60)
+	  		mouse = pygame.mouse.get_pos()
+	  		click = pygame.mouse.get_pressed() 
+	  				
+	  		if(125>mouse[0]>25 and 275>mouse[1]>200 and click[0] == 1):
+	  				game_intro()
+	  				end = False
+	  		#If no then exit	
+	  		if(275>mouse[0]>175 and 275>mouse[1]>200 and click[0] == 1):
+	  				pygame.quit()
+	  				quit()
 
 #If player wants to play with AI(computer) this function will be called
 def comp_play():
