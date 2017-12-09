@@ -55,6 +55,7 @@ def game_end(value):
 	end = True
 
 	while end:
+		
 		mouse = pygame.mouse.get_pos()
   		click = pygame.mouse.get_pressed() 
   		for event in pygame.event.get():
@@ -73,6 +74,24 @@ def game_end(value):
   		lst[0] = 0
   		click = tuple(lst)
   		lst = list(mouse)
+  		lst[0] = 150
+  		lst[1] = 150
+  		mouse = tuple(lst)
+
+  		#If yes the show the first screen
+  		if(mouse[0] == 150 and mouse[1] == 150 and click[0] == 0):
+  			clock=pygame.time.Clock() #wait before taking the next mouse click (solved the problem of click getting saved)
+			clock.tick(60)
+	  		mouse = pygame.mouse.get_pos()
+	  		click = pygame.mouse.get_pressed() 
+	  				
+	  		if(125>mouse[0]>25 and 275>mouse[1]>200 and click[0] == 1):
+	  				game_intro()
+	  				end = False
+	  		#If no then exit	
+	  		if(275>mouse[0]>175 and 275>mouse[1]>200 and click[0] == 1):
+	  				pygame.quit()
+	  				quit()
   		lst[0] = 0
   		lst[1] = 0
   		mouse = tuple(lst)

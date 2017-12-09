@@ -322,4 +322,3 @@ class Board(object):
             pygame.draw.rect(self.screen, self.red,(175,200,100,75))
         self.screen.blit(text3, (40, 220))
         self.screen.blit(text4, (200, 220))
-
