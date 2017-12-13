@@ -286,4 +286,3 @@ class Board(object):
             pygame.draw.rect(self.screen, self.bright_red,(175,200,100,75))
         else:
             pygame.draw.rect(self.screen, self.red,(175,200,100,75))
-
