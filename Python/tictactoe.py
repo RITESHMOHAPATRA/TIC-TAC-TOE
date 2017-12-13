@@ -287,3 +287,11 @@ class Board(object):
         else:
             pygame.draw.rect(self.screen, self.red,(175,200,100,75))
 
+        text3 = font.render('Yes', True, self.black)
+        rect3 = text3.get_rect()
+        rect3.center = (75,237)
+        self.screen.blit(text3,rect3)
+        text4 = font.render('No', True, self.black)
+        rect4 = text4.get_rect()
+        rect4.center = (225,237)
+        self.screen.blit(text4,rect4)
