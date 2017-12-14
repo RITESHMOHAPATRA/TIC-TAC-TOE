@@ -1,15 +1,22 @@
+ #!/usr/bin/env python
+
 import random
 import pygame
- 
+
+
 class Tic(object):
     winning_combos = (
         [0, 1, 2], [3, 4, 5], [6, 7, 8],
         [0, 3, 6], [1, 4, 7], [2, 5, 8],
         [0, 4, 8], [2, 4, 6])
- 
+
     winners = ('X-win', 'Draw', 'O-win')
- 
-    def __init__(self):
+
+    def __init__(self, squares=[]):
+        # if len(squares) == 0:
+        #     self.squares = [None for i in range(9)]
+        # else:
+        #     self.squares = squares
         self.screen = pygame.display.set_mode((300, 300))
         self.color = (100, 100, 200)
         self.black = (0,0,0)
@@ -72,9 +79,9 @@ class Tic(object):
 
     def initialize(self):
         self.screen.fill(self.black)
-        self.squares = []
-        if len(self.squares) == 0:
-            self.squares = [None for i in range(9)]
+
+        self.squares = [None for i in range(9)]
+
         #Each square of the game grid is made by four lines of 10 pixel density each. 
         #The original rectangle function isnt used because it creates blurred pixels on the edges which is not visually attractive. 
         pygame.draw.rect(self.screen, self.color, pygame.Rect(10, 10, 100, 10))
@@ -114,36 +121,35 @@ class Tic(object):
         pygame.draw.rect(self.screen, self.color, pygame.Rect(280, 190, 10, 90))
         pygame.draw.rect(self.screen, self.color, pygame.Rect(190, 280, 100, 10))
 
- 
-    # def show(self):
-    #     for element in [self.squares[i:i + 3] for i in range(0, len(self.squares), 3)]:
-    #         print (element)
- 
+    def show(self):
+        for element in [self.squares[i:i + 3] for i in range(0, len(self.squares), 3)]:
+            print element
+
     def available_moves(self):
         """what spots are left empty?"""
         return [k for k, v in enumerate(self.squares) if v is None]
- 
+
     def available_combos(self, player):
         """what combos are available?"""
         return self.available_moves() + self.get_squares(player)
- 
+
     def complete(self):
         """is the game over?"""
         if None not in [v for v in self.squares]:
             return True
-        if self.winner() != 0:
+        if self.winner() != None:
             return True
         return False
- 
+
     def X_won(self):
         return self.winner() == 'X'
- 
+
     def O_won(self):
         return self.winner() == 'O'
- 
+
     def tied(self):
         return self.complete() == True and self.winner() is None
- 
+
     def winner(self):
         for player in ('X', 'O'):
             positions = self.get_squares(player)
@@ -153,29 +159,25 @@ class Tic(object):
                     if pos not in positions:
                         win = False
                 if win:
-                    if player == 'X':
-                        return 'Player'
-                    else:
-                        return 'Computer'
-        return 0
- 
+                    return player
+        return None
+
     def get_squares(self, player):
         """squares that belong to a player"""
         return [k for k, v in enumerate(self.squares) if v == player]
- 
+
     def make_move(self, position, player):
         """place on square on the board"""
         self.squares[position] = player
-        
- 
+
     def alphabeta(self, node, player, alpha, beta):
         if node.complete():
             if node.X_won():
-                return -10
+                return -1
             elif node.tied():
                 return 0
             elif node.O_won():
-                return 10
+                return 1
         for move in node.available_moves():
             node.make_move(move, player)
             val = self.alphabeta(node, get_enemy(player), alpha, beta)
@@ -194,8 +196,8 @@ class Tic(object):
             return alpha
         else:
             return beta
- 
- 
+
+
 def determine(board, player):
     a = -2
     choices = []
@@ -205,47 +207,48 @@ def determine(board, player):
         board.make_move(move, player)
         val = board.alphabeta(board, get_enemy(player), -2, 2)
         board.make_move(move, None)
-        # print ("move:", move + 1, "causes:", board.winners[val + 1]) ##Displays the score of each move
+        print "move:", move + 1, "causes:", board.winners[val + 1]
         if val > a:
             a = val
             choices = [move]
         elif val == a:
             choices.append(move)
     return random.choice(choices)
- 
- 
+
+
 def get_enemy(player):
     if player == 'X':
         return 'O'
     return 'X'
 
-
 def nxt_turn1(key,board):
-    # board = Tic()
-        # board.show()
     
     player = 'X'
-    player_move = key- 1
+    player_move = key - 1
     if not player_move in board.available_moves():
         return 'ongoing'
     board.make_move(player_move, player)
-    board.update_surface(player,player_move + 1)
-        # board.show()
-     
+    board.show()
+    board.update_surface(player,player_move+1)
+
     if board.complete():
-        if board.winner():
+        if board.winner()!= None:
             return board.winner()
         else:
             return 'Draw'
 
-    player = 'O'
+    player = get_enemy(player)
     computer_move = determine(board, player)
     board.make_move(computer_move, player)
-    board.update_surface(player,computer_move + 1)
+    board.update_surface(player,computer_move+1)
+    board.show()
         # board.show()
     if board.complete():
-        if board.winner():
-            return board.winner()
+        if board.winner()!= None:
+            if board.winner() ==  'X':
+                return 'Player'
+            if board.winner() == 'O':
+                return 'Computer'
         else:
             return 'Draw'
 
