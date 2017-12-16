@@ -32,8 +32,8 @@ def game_intro():
   			PVPplay()
   			intro = False
   		if(click[0] == 1 and 210>mouse[0]>90 and 290>mouse[1]>200):
-  			pygame.quit()
-  			quit()
+  			quitmenu()
+  			intro = False
 
 def game_end(value):
 
@@ -54,8 +54,31 @@ def game_end(value):
   			game_intro()
   			end = False
   		if(click[0] == 1 and 275>mouse[0]>175 and 275>mouse[1]>200):
-  			pygame.quit()
-  			quit()
+  			quitmenu()
+  			end = False
+
+def quitmenu():
+ 	end = True
+
+	while end:
+		mouse = pygame.mouse.get_pos()
+	  	click = pygame.mouse.get_pressed() 
+
+	  	for event in pygame.event.get():
+	  		if event.type == pygame.QUIT:
+	  			pygame.quit()
+	  			quit()
+	  	board.quit_menu(mouse[0],mouse[1])
+	  	pygame.display.flip()
+	  	pygame.display.update()
+	  	if(click[0] == 1 and 125>mouse[0]>25 and 275>mouse[1]>200):
+	  		game_intro()
+	  		end = False
+	  	if(click[0] == 1 and 275>mouse[0]>175 and 275>mouse[1]>200):
+	  		pygame.quit()
+	  		quit()
+
+
 
 def game_mode():
 
