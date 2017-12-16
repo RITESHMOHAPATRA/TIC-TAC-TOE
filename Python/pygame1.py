@@ -163,65 +163,6 @@ def comp_play_hard():
 
 def comp_play_easy():
 	done = False
-	tic.initialize()
-	value = 'ongoing'
-	while not done:
-	        for event in pygame.event.get():
-	            mouse = pygame.mouse.get_pos() 
-	            click = pygame.mouse.get_pressed()
-	            if event.type == pygame.QUIT or event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE:
-	                done = True
-	            #Input involves two methods, one by pressing keys and other by mouse input. This part is key input.
-	            if event.type == pygame.KEYUP and event.key == pygame.K_KP1 or event.type == pygame.KEYUP and event.key == pygame.K_1:
-	                value = mini2.nxt_turn1(7,tic)    
-	            if event.type == pygame.KEYUP and event.key == pygame.K_KP2 or event.type == pygame.KEYUP and event.key == pygame.K_2:
-	                value = mini2.nxt_turn1(8,tic)
-	            if event.type == pygame.KEYUP and event.key == pygame.K_KP3 or event.type == pygame.KEYUP and event.key == pygame.K_3:
-	                value = mini2.nxt_turn1(9,tic)
-	            if event.type == pygame.KEYUP and event.key == pygame.K_KP4 or event.type == pygame.KEYUP and event.key == pygame.K_4:
-	                value = mini2.nxt_turn1(4,tic)
-	            if event.type == pygame.KEYUP and event.key == pygame.K_KP5 or event.type == pygame.KEYUP and event.key == pygame.K_5:
-	                value = mini2.nxt_turn1(5,tic)
-	            if event.type == pygame.KEYUP and event.key == pygame.K_KP6 or event.type == pygame.KEYUP and event.key == pygame.K_6:
-	                value = mini2.nxt_turn1(6,tic)
-	            if event.type == pygame.KEYUP and event.key == pygame.K_KP7 or event.type == pygame.KEYUP and event.key == pygame.K_7:
-	                value = mini2.nxt_turn1(1,tic)
-	            if event.type == pygame.KEYUP and event.key == pygame.K_KP8 or event.type == pygame.KEYUP and event.key == pygame.K_8:
-	                value = mini2.nxt_turn1(2,tic)
-	            if event.type == pygame.KEYUP and event.key == pygame.K_KP9 or event.type == pygame.KEYUP and event.key == pygame.K_9:
-	                value = mini2.nxt_turn1(3,tic)
-	            #This part is mouse input. Functions called only if the mouse is clicked at its certain domain defined by x and y coordinates.
-	            if 100>mouse[0]>20 and 280>mouse[1]>200 and click[0] == 1:
-	                value = mini2.nxt_turn1(7,tic)
-	            if 190>mouse[0]>110 and 280>mouse[1]>200 and click[0] == 1:
-	                value = mini2.nxt_turn1(8,tic)
-	            if 280>mouse[0]>200 and 280>mouse[1]>200 and click[0] == 1:
-	                value = mini2.nxt_turn1(9,tic)
-	            if 100>mouse[0]>20 and 190>mouse[1]>110 and click[0] == 1:
-	                value = mini2.nxt_turn1(4,tic)
-	            if 190>mouse[0]>110 and 190>mouse[1]>110 and click[0] == 1:
-	                value = mini2.nxt_turn1(5,tic)
-	            if 280>mouse[0]>200 and 190>mouse[1]>110 and click[0] == 1:
-	                value = mini2.nxt_turn1(6,tic)
-	            if 100>mouse[0]>20 and 100>mouse[1]>20 and click[0] == 1:
-	                value = mini2.nxt_turn1(1,tic)
-	            if 190>mouse[0]>110 and 100>mouse[1]>20 and click[0] == 1:
-	                value = mini2.nxt_turn1(2,tic)
-	            if 280>mouse[0]>200 and 100>mouse[1]>20 and click[0] == 1:
-	                value = mini2.nxt_turn1(3,tic)
-	            
-		pygame.display.flip()
-		if value != 'ongoing':
-			done = True
-	if value == 'Player':
-		game_end('Player')
-	if value == 'Computer':
-		game_end('Computer')
-	if value == 'Draw':
-		game_end(0) 
-
-def comp_play_easy():
-	done = False
 	board.initialize()
 	value = 'ongoing'
 	while not done:
