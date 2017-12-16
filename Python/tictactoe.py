@@ -295,3 +295,36 @@ class Board(object):
         rect4 = text4.get_rect()
         rect4.center = (225,237)
         self.screen.blit(text4,rect4)
+
+    def AI_menu(self,x,y):
+        self.screen.fill(self.white)
+        surface_size = self.screen.get_height()
+        font = pygame.font.Font('freesansbold.ttf', surface_size/8)
+        text = 'Game Mode'
+        text = font.render(text, True,self.black, self.white)
+        rect = text.get_rect()
+        rect.center = (surface_size / 2, 30)
+        self.screen.blit(text, rect)
+
+        # text2 = font.render("Play Again?", True,self.black,self.white)
+        # rect2 = text2.get_rect()
+        # rect2.center = (surface_size/2,100)
+        # self.screen.blit(text2,rect2)
+
+        if 125 > x > 25 and 275 > y > 200:
+            pygame.draw.rect(self.screen, self.bright_green,(25,200,100,75))
+        else:
+            pygame.draw.rect(self.screen, self.green,(25,200,100,75))
+        if 275 > x > 175 and 275 > y > 200:
+            pygame.draw.rect(self.screen, self.bright_red,(175,200,100,75))
+        else:
+            pygame.draw.rect(self.screen, self.red,(175,200,100,75))
+
+        text3 = font.render('Easy', True, self.black)
+        rect3 = text3.get_rect()
+        rect3.center = (75,237)
+        self.screen.blit(text3,rect3)
+        text4 = font.render('Hard', True, self.black)
+        rect4 = text4.get_rect()
+        rect4.center = (225,237)
+        self.screen.blit(text4,rect4)

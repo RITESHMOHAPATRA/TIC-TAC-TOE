@@ -26,7 +26,7 @@ def game_intro():
   		pygame.display.flip()
   		pygame.display.update()
   		if(click[0] == 1 and 140>mouse[0]>20 and 190>mouse[1]>100):
-  			comp_play()
+  			game_mode()
   			intro = False
   		if(click[0] == 1 and 280>mouse[0]>160 and 190>mouse[1]>100):
   			PVPplay()
@@ -57,7 +57,29 @@ def game_end(value):
   			pygame.quit()
   			quit()
 
-def comp_play():
+def game_mode():
+
+	end = True
+
+	while end:
+		mouse = pygame.mouse.get_pos()
+  		click = pygame.mouse.get_pressed() 
+
+  		for event in pygame.event.get():
+  			if event.type == pygame.QUIT:
+  				pygame.quit()
+  				quit()
+  		board.AI_menu(mouse[0],mouse[1])
+  		pygame.display.flip()
+  		pygame.display.update()
+  		if(click[0] == 1 and 125>mouse[0]>25 and 275>mouse[1]>200):
+  			comp_play_easy()
+  			end = False
+  		if(click[0] == 1 and 275>mouse[0]>175 and 275>mouse[1]>200):
+  			comp_play_hard()
+  			end = False
+
+def comp_play_hard():
 	done = False
 	tic.initialize()
 	value = 'ongoing'
