@@ -10,8 +10,7 @@ clock = pygame.time.Clock()
 font = pygame.font.SysFont("comicsansms", 72)
 
 def game_intro():
-
-    intro = True
+    intro = True #For generating an infinite loop.
 
     while intro:
   		mouse = pygame.mouse.get_pos()
@@ -25,6 +24,7 @@ def game_intro():
   		board.first_menu(mouse[0],mouse[1])  #Co-ordinates of mouse pointer passed so that menu options can be highlighted. 
   		pygame.display.flip()
   		pygame.display.update()
+  		#Passing to different menus if clicked at the right positions.
   		if(click[0] == 1 and 140>mouse[0]>20 and 190>mouse[1]>100):
   			game_mode()
   			intro = False
@@ -36,8 +36,7 @@ def game_intro():
   			intro = False
 
 def game_end(value):
-
-	end = True
+	end = True  #For generating an infinite loop.
 
 	while end:
 		mouse = pygame.mouse.get_pos()
@@ -47,7 +46,7 @@ def game_end(value):
   			if event.type == pygame.QUIT:
   				pygame.quit()
   				quit()
-  		board.last_menu(value,mouse[0],mouse[1])
+  		board.last_menu(value,mouse[0],mouse[1]) #Co-ordinates of mouse pointer passed so that menu options can be highlighted.
   		pygame.display.flip()
   		pygame.display.update()
   		if(click[0] == 1 and 125>mouse[0]>25 and 275>mouse[1]>200):
@@ -58,7 +57,7 @@ def game_end(value):
   			end = False
 
 def quitmenu():
- 	end = True
+ 	end = True  #For generating an infinite loop.
 
 	while end:
 		mouse = pygame.mouse.get_pos()
@@ -68,9 +67,10 @@ def quitmenu():
 	  		if event.type == pygame.QUIT:
 	  			pygame.quit()
 	  			quit()
-	  	board.quit_menu(mouse[0],mouse[1])
+	  	board.quit_menu(mouse[0],mouse[1])  #Co-ordinates of mouse pointer passed so that menu options can be highlighted.
 	  	pygame.display.flip()
 	  	pygame.display.update()
+  		#Passing to different menus if clicked at the right positions.
 	  	if(click[0] == 1 and 125>mouse[0]>25 and 275>mouse[1]>200):
 	  		game_intro()
 	  		end = False
@@ -81,8 +81,7 @@ def quitmenu():
 
 
 def game_mode():
-
-	end = True
+	end = True   #For generating an infinite loop.
 
 	while end:
 		mouse = pygame.mouse.get_pos()
@@ -92,9 +91,10 @@ def game_mode():
   			if event.type == pygame.QUIT:
   				pygame.quit()
   				quit()
-  		board.AI_menu(mouse[0],mouse[1])
+  		board.AI_menu(mouse[0],mouse[1])  #Co-ordinates of mouse pointer passed so that menu options can be highlighted.
   		pygame.display.flip()
   		pygame.display.update()
+  		#Passing to different menus if clicked at the right positions.
   		if(click[0] == 1 and 125>mouse[0]>25 and 275>mouse[1]>200):
   			comp_play_easy()
   			end = False
@@ -103,7 +103,7 @@ def game_mode():
   			end = False
 
 def comp_play_hard():
-	done = False
+	done = False  #For generating an infinite loop.
 	tic.initialize()
 	value = 'ongoing'
 	while not done:
@@ -154,6 +154,7 @@ def comp_play_hard():
 		pygame.display.flip()
 		if value != 'ongoing':
 			done = True
+	#In case of the game getting over, displaying of results.
 	if value == 'Player':
 		game_end('Player')
 	if value == 'Computer':
@@ -162,7 +163,7 @@ def comp_play_hard():
 		game_end(0) 
 
 def comp_play_easy():
-	done = False
+	done = False  #For generating an infinite loop.
 	board.initialize()
 	value = 'ongoing'
 	while not done:
@@ -213,6 +214,7 @@ def comp_play_easy():
 		pygame.display.flip()
 		if value != 'ongoing':
 			done = True
+	#In case of the game getting over, displaying of results.
 	if value == 'Player':
 		game_end('Player')
 	if value == 'Computer':
@@ -221,7 +223,7 @@ def comp_play_easy():
 		game_end(0) 
 
 def PVPplay():
-	done = False
+	done = False  #For generating an infinite loop.
 	board.initialize()
 	value = 'ongoing'
 	while not done:
@@ -272,6 +274,7 @@ def PVPplay():
 		pygame.display.flip()
 		if value != 'ongoing':
 			done = True
+	#In case of the game getting over, displaying of results.
 	if value == 'Player1':
 		game_end('Player1')
 	if value == 'Player2':
@@ -281,6 +284,6 @@ def PVPplay():
 			
 
 
-game_intro()
+game_intro()   #Displying of first menu as the game starts.
 pygame.display.flip()
 pygame.display.update()

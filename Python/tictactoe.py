@@ -101,26 +101,6 @@ class Board(object):
             return random.choice(possibleMoves)
         else:
             return None
-               
-    def getComputerMove(self,copy):
-        for i in range(1, 10):
-            if self.isSpaceFree(copy, i):
-                self.makeMove(copy, 'O', i)
-                if self.isWinner(copy, 'O'):
-                    return i
-        copy = self.getBoardCopy()
-        for i in range(1, 10):
-            if self.isSpaceFree(copy, i):
-                self.makeMove(copy, 'X', i)
-                if self.isWinner(copy, 'X'):
-                    return i
-        copy = self.getBoardCopy()    
-        move = self.chooseRandomMoveFromList(copy, [1, 3, 7, 9])
-        if move != None:
-            return move
-        if self.isSpaceFree(copy, 5):
-            return 5
-        return self.chooseRandomMoveFromList(copy, [2, 4, 6, 8])
    
     def isBoardFull(self,copy):
         for i in range(1, 10):
@@ -170,7 +150,7 @@ class Board(object):
         pygame.draw.rect(self.screen, self.color, pygame.Rect(280, 190, 10, 90))
         pygame.draw.rect(self.screen, self.color, pygame.Rect(190, 280, 100, 10)) 
 
-    def nxt_turn1(self,position):
+    def nxt_turn1(self,position):  #Working on move input by player 1.
         flag = self.isSpaceFree(self.getBoardCopy(),position)
         if flag:
             self.makeMove(0,'X',position)
@@ -188,7 +168,7 @@ class Board(object):
 
         return 'ongoing'
 
-    def nxt_turn2(self,position):
+    def nxt_turn2(self,position):   #Working on move input by player 2.
         flag = self.isSpaceFree(self.getBoardCopy(),position)
         if flag:
             if(self.marker == 'X'):
@@ -207,7 +187,27 @@ class Board(object):
 
         return 'ongoing'
 
-    def display_game_over(self, winner):
+    def getComputerMove(self,copy):  #Generating and working on move by computer.
+        for i in range(1, 10):
+            if self.isSpaceFree(copy, i):
+                self.makeMove(copy, 'O', i)
+                if self.isWinner(copy, 'O'):
+                    return i
+        copy = self.getBoardCopy()
+        for i in range(1, 10):
+            if self.isSpaceFree(copy, i):
+                self.makeMove(copy, 'X', i)
+                if self.isWinner(copy, 'X'):
+                    return i
+        copy = self.getBoardCopy()    
+        move = self.chooseRandomMoveFromList(copy, [1, 3, 7, 9])
+        if move != None:
+            return move
+        if self.isSpaceFree(copy, 5):
+            return 5
+        return self.chooseRandomMoveFromList(copy, [2, 4, 6, 8])
+
+    def display_game_over(self, winner):   #The function calling is handled by pygame1.py file. This menu is just the graphical interface required for the same. Hence, no function calling done.
         surface_size = self.screen.get_height()
         font = pygame.font.Font('freesansbold.ttf', surface_size / 8)
         if winner:
@@ -260,7 +260,7 @@ class Board(object):
         rect4.center = (150,245)
         self.screen.blit(text4, rect4) 
 
-    def last_menu(self,player,x,y):
+    def last_menu(self,player,x,y):   #The function calling is handled by pygame1.py file. This menu is just the graphical interface required for the same. Hence, no function calling done.
         self.screen.fill(self.white)
         surface_size = self.screen.get_height()
         font = pygame.font.Font('freesansbold.ttf', surface_size/8)
@@ -296,7 +296,7 @@ class Board(object):
         rect4.center = (225,237)
         self.screen.blit(text4,rect4)
 
-    def AI_menu(self,x,y):
+    def AI_menu(self,x,y):   #The function calling is handled by pygame1.py file. This menu is just the graphical interface required for the same. Hence, no function calling done.
         self.screen.fill(self.white)
         surface_size = self.screen.get_height()
         font = pygame.font.Font('freesansbold.ttf', surface_size/8)
@@ -305,11 +305,6 @@ class Board(object):
         rect = text.get_rect()
         rect.center = (surface_size / 2, 30)
         self.screen.blit(text, rect)
-
-        # text2 = font.render("Play Again?", True,self.black,self.white)
-        # rect2 = text2.get_rect()
-        # rect2.center = (surface_size/2,100)
-        # self.screen.blit(text2,rect2)
 
         if 125 > x > 25 and 275 > y > 200:
             pygame.draw.rect(self.screen, self.bright_green,(25,200,100,75))
@@ -329,7 +324,7 @@ class Board(object):
         rect4.center = (225,237)
         self.screen.blit(text4,rect4)
 
-    def quit_menu(self,x,y):
+    def quit_menu(self,x,y):   #The function calling is handled by pygame1.py file. This menu is just the graphical interface required for the same. Hence, no function calling done.
         self.screen.fill(self.white)
         surface_size = self.screen.get_height()
         font = pygame.font.Font('freesansbold.ttf', surface_size/8)
@@ -338,11 +333,6 @@ class Board(object):
         rect = text.get_rect()
         rect.center = (surface_size / 2, 30)
         self.screen.blit(text, rect)
-
-        # text2 = font.render("Play Again?", True,self.black,self.white)
-        # rect2 = text2.get_rect()
-        # rect2.center = (surface_size/2,100)
-        # self.screen.blit(text2,rect2)
 
         if 125 > x > 25 and 275 > y > 200:
             pygame.draw.rect(self.screen, self.bright_green,(25,200,100,75))
