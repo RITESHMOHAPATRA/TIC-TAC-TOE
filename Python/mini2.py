@@ -123,7 +123,7 @@ class Tic(object):
 
     def show(self):
         for element in [self.squares[i:i + 3] for i in range(0, len(self.squares), 3)]:
-            print element
+            print(element)
 
     def available_moves(self):
         """what spots are left empty?"""
@@ -207,7 +207,7 @@ def determine(board, player):
         board.make_move(move, player)
         val = board.alphabeta(board, get_enemy(player), -2, 2)
         board.make_move(move, None)
-        # print "move:", move + 1, "causes:", board.winners[val + 1]
+        # print("move:", move + 1, "causes:", board.winners[val + 1])
         if val > a:
             a = val
             choices = [move]
