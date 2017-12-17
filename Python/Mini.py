@@ -123,7 +123,7 @@ class Tic(object):
 
     def show(self):
         for element in [self.squares[i:i + 3] for i in range(0, len(self.squares), 3)]:
-            print element
+            print(element)
 
     def available_moves(self):
         """what spots are left empty?"""
