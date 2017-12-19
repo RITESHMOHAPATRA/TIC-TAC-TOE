@@ -22,6 +22,7 @@ def game_intro():
   				quit()
 
   		board.first_menu(mouse[0],mouse[1])  #Co-ordinates of mouse pointer passed so that menu options can be highlighted. 
+  		pygame.display.set_caption("Game Menu")
   		pygame.display.flip()
   		pygame.display.update()
   		#Passing to different menus if clicked at the right positions.
@@ -47,6 +48,7 @@ def game_end(value):
   				pygame.quit()
   				quit()
   		board.last_menu(value,mouse[0],mouse[1]) #Co-ordinates of mouse pointer passed so that menu options can be highlighted.
+  		pygame.display.set_caption("Game Over")
   		pygame.display.flip()
   		pygame.display.update()
   		if(click[0] == 1 and 125>mouse[0]>25 and 275>mouse[1]>200):
@@ -68,6 +70,7 @@ def quitmenu():
 	  			pygame.quit()
 	  			quit()
 	  	board.quit_menu(mouse[0],mouse[1])  #Co-ordinates of mouse pointer passed so that menu options can be highlighted.
+	  	pygame.display.set_caption("Quit Menu")
 	  	pygame.display.flip()
 	  	pygame.display.update()
   		#Passing to different menus if clicked at the right positions.
@@ -92,6 +95,7 @@ def game_mode():
   				pygame.quit()
   				quit()
   		board.AI_menu(mouse[0],mouse[1])  #Co-ordinates of mouse pointer passed so that menu options can be highlighted.
+  		pygame.display.set_caption("Game Mode")
   		pygame.display.flip()
   		pygame.display.update()
   		#Passing to different menus if clicked at the right positions.
@@ -105,6 +109,7 @@ def game_mode():
 def comp_play_hard():
 	done = False  #For generating an infinite loop.
 	tic.initialize()
+	pygame.display.set_caption("Computer Play - Hard")
 	value = 'ongoing'
 	while not done:
 	        for event in pygame.event.get():
@@ -165,6 +170,7 @@ def comp_play_hard():
 def comp_play_easy():
 	done = False  #For generating an infinite loop.
 	board.initialize()
+	pygame.display.set_caption("Computer Play - Easy")
 	value = 'ongoing'
 	while not done:
 	        for event in pygame.event.get():
@@ -225,6 +231,7 @@ def comp_play_easy():
 def PVPplay():
 	done = False  #For generating an infinite loop.
 	board.initialize()
+	pygame.display.set_caption("P v P Play")
 	value = 'ongoing'
 	while not done:
 	        for event in pygame.event.get():
