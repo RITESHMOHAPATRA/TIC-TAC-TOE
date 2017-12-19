@@ -22,6 +22,7 @@ def game_intro():
   				quit()
 
   		board.first_menu(mouse[0],mouse[1])  #Co-ordinates of mouse pointer passed so that menu options can be highlighted. 
+  		pygame.display.set_caption("Game Menu")
   		pygame.display.flip()
   		pygame.display.update()
   		#Passing to different menus if clicked at the right positions.
