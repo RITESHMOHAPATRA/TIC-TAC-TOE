@@ -43,7 +43,7 @@ public class TicTacToeGUI extends JFrame {
 		// Initialise all the buttons
 		for(int i=0; i<9; i++) {
 			boardButtons[i] = new JButton();
-			boardButtons[i].setBackground(Color.BLACK);
+			boardButtons[i].setBackground(Color.BLUE);
 			boardButtons[i].setText("");
 			boardButtons[i].setVisible(true);
 
