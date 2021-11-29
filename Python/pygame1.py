@@ -1,7 +1,11 @@
 import pygame
 from tictactoe import Board
+
 import mini2
 from mini2 import Tic
+
+
+#initialization
 
 pygame.init()
 board = Board()
@@ -9,44 +13,80 @@ tic = Tic()
 clock = pygame.time.Clock()
 font = pygame.font.SysFont("comicsansms", 72)
 
+#start the game
 def game_intro():
     intro = True #For generating an infinite loop.
 
+    #run the game while unless player press quit or close the game
     while intro:
   		mouse = pygame.mouse.get_pos()
   		click = pygame.mouse.get_pressed() 
 
+  		#get the mouse click and event
   		for event in pygame.event.get():
   			if event.type == pygame.QUIT:
   				pygame.quit()
+  				print 'Exit 1'
   				quit()
+
 
   		board.first_menu(mouse[0],mouse[1])  #Co-ordinates of mouse pointer passed so that menu options can be highlighted. 
   		pygame.display.set_caption("Game Menu")
+
+  		#load the main manu based screen, asking user to select whom he has to play with AI,PvP or Quit		
+
+  		board.first_menu(mouse[0],mouse[1])  #Co-ordinates of mouse pointer passed so that menu options can be highlighted. 
+
   		pygame.display.flip()
+
+  		clock=pygame.time.Clock() 
+		clock.tick(60)
+  		mouse = pygame.mouse.get_pos()
+  		click = pygame.mouse.get_pressed() 
+  		
   		pygame.display.update()
+
   		#Passing to different menus if clicked at the right positions.
   		if(click[0] == 1 and 140>mouse[0]>20 and 190>mouse[1]>100):
   			game_mode()
+
+  		if(click[0] == 1 and 140>mouse[0]>20 and 190>mouse[1]>100): #getting the click from the user if he selected vs AI
+  			comp_play()
+
   			intro = False
-  		if(click[0] == 1 and 280>mouse[0]>160 and 190>mouse[1]>100):
+  		if(click[0] == 1 and 280>mouse[0]>160 and 190>mouse[1]>100): #getting the click from the user if he selected Player to Player
   			PVPplay()
   			intro = False
+
   		if(click[0] == 1 and 210>mouse[0]>90 and 290>mouse[1]>200):
   			quitmenu()
   			intro = False
+
+
+        
+  		if(click[0] == 1 and 210>mouse[0]>90 and 290>mouse[1]>200): #getting the click from the user if he wants to quit
+  		if(click[0] == 1 and 210>mouse[0]>90 and 290>mouse[1]>200): #getting the click from the user if he wants to
+  			pygame.quit()
+  			print 'Exit 2'
+  			quit()
+'''
+After the game is over and the result is either Computer, Player or Draw
+It displays the last_menu screen and asks whether to Play again,If yes ,control tranfer to game_into()'s first_menu again
+If no then exit. 
+'''
 
 def game_end(value):
 	end = True  #For generating an infinite loop.
 
 	while end:
+		
 		mouse = pygame.mouse.get_pos()
   		click = pygame.mouse.get_pressed() 
-
   		for event in pygame.event.get():
   			if event.type == pygame.QUIT:
   				pygame.quit()
   				quit()
+
   		board.last_menu(value,mouse[0],mouse[1]) #Co-ordinates of mouse pointer passed so that menu options can be highlighted.
   		pygame.display.set_caption("Game Over")
   		pygame.display.flip()
@@ -169,15 +209,74 @@ def comp_play_hard():
 
 def comp_play_easy():
 	done = False  #For generating an infinite loop.
+
+  		#display the last_menu to get the users choice to play again !		
+  		board.last_menu(value,mouse[0],mouse[1])
+  		pygame.display.flip()
+  		pygame.display.update()
+
+  		#remove the bug of mouse getting already clcked by the user	
+  		clock=pygame.time.Clock() #wait before taking the next mouse click (solved the problem of click getting saved)
+		clock.tick(60)
+		lst = list(click)
+  		lst[0] = 0
+  		click = tuple(lst)
+  		lst = list(mouse)
+  		lst[0] = 150
+  		lst[1] = 150
+  		mouse = tuple(lst)
+
+  		#If yes the show the first screen
+  		if(mouse[0] == 150 and mouse[1] == 150 and click[0] == 0):
+  			clock=pygame.time.Clock() #wait before taking the next mouse click (solved the problem of click getting saved)
+			clock.tick(60)
+	  		mouse = pygame.mouse.get_pos()
+	  		click = pygame.mouse.get_pressed() 
+	  				
+	  		if(125>mouse[0]>25 and 275>mouse[1]>200 and click[0] == 1):
+	  				game_intro()
+	  				end = False
+	  		#If no then exit	
+	  		if(275>mouse[0]>175 and 275>mouse[1]>200 and click[0] == 1):
+	  				pygame.quit()
+	  				quit()
+  		lst[0] = 0
+  		lst[1] = 0
+  		mouse = tuple(lst)
+		print 'click = ', click[0]
+  		mouse = pygame.mouse.get_pos()
+  		#click = pygame.mouse.get_pressed() 
+ 				
+  		#If yes the show the first screen
+  		if(125>mouse[0]>25 and 275>mouse[1]>200):
+  			click = pygame.mouse.get_pressed() #even this seems not to work
+  			if(click[0] == 1):
+  				game_intro()
+  				end = False
+  		#If no then exit	
+  		if(275>mouse[0]>175 and 275>mouse[1]>200):
+  			click = pygame.mouse.get_pressed()
+  			if(click[0] == 1):
+  				pygame.quit()
+  				quit()
+
+#If player wants to play with AI(computer) this function will be called
+def comp_play():
+	done = False
+
 	board.initialize()
 	pygame.display.set_caption("Computer Play - Easy")
 	value = 'ongoing'
 	while not done:
+			#Input involves two methods, one by pressing keys(1...9) and other by mouse input. 
 	        for event in pygame.event.get():
 	            mouse = pygame.mouse.get_pos() 
 	            click = pygame.mouse.get_pressed()
 	            if event.type == pygame.QUIT or event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE:
 	                done = True
+
+	            #This part is key input.
+
 	            #Input involves two methods, one by pressing keys and other by mouse input. This part is key input.
 	            if event.type == pygame.KEYUP and event.key == pygame.K_KP1 or event.type == pygame.KEYUP and event.key == pygame.K_1:
 	                value = board.nxt_turn1(1)    
@@ -228,17 +327,25 @@ def comp_play_easy():
 	if value == 0:
 		game_end(0) 
 
+#If player wants to play with other player then this function will be called
 def PVPplay():
 	done = False  #For generating an infinite loop.
 	board.initialize()
 	pygame.display.set_caption("P v P Play")
 	value = 'ongoing'
 	while not done:
+			#Input involves two methods, one by pressing keys and other by mouse input.
 	        for event in pygame.event.get():
 	            mouse = pygame.mouse.get_pos() 
+	          #  print 'mouse position ', mouse
 	            click = pygame.mouse.get_pressed()
+	          #  print 'click position ', click
 	            if event.type == pygame.QUIT or event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE:
 	                done = True
+
+
+	            #This part is key input.
+
 	            #Input involves two methods, one by pressing keys and other by mouse input. This part is key input.
 	            if event.type == pygame.KEYUP and event.key == pygame.K_KP1 or event.type == pygame.KEYUP and event.key == pygame.K_1:
 	                value = board.nxt_turn2(1)    
@@ -291,6 +398,11 @@ def PVPplay():
 			
 
 
+
 game_intro()   #Displying of first menu as the game starts.
+
+#start the game
+game_intro()
+
 pygame.display.flip()
 pygame.display.update()

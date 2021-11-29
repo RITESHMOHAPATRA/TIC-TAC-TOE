@@ -13,6 +13,7 @@ class Board(object):
         self.bright_red = (255,0,0)
         self.bright_green = (0,255,0) 
         self.marker = 'O'
+    #calls update surface and marks the letter at the given position    
     def makeMove(self,copy,letter, position):
         if not copy:
             self.theBoard[position] = letter
@@ -72,8 +73,18 @@ class Board(object):
             if(position == 9):
                 pygame.draw.circle(self.screen,self.bright_red, (240,60), 30)    
 
+    #check if the board contains 3 consecutive same letter            
     def isWinner(self,copy,le):
         #Checking of each possible winning combination.
+
+        return ((copy[7] == le and copy[8] == le and copy[9] == le) or #check horizontal top row 
+            (copy[4] == le and copy[5] == le and copy[6] == le) or     #check horizontal middle row     
+            (copy[1] == le and copy[2] == le and copy[3] == le) or     #check horizontal bottom row
+            (copy[7] == le and copy[4] == le and copy[1] == le) or     #check vertical first column 
+            (copy[8] == le and copy[5] == le and copy[2] == le) or     #check vertical second column     
+            (copy[9] == le and copy[6] == le and copy[3] == le) or     #check vertical last column
+            (copy[7] == le and copy[5] == le and copy[3] == le) or     #check diagonal 
+
         return ((copy[7] == le and copy[8] == le and copy[9] == le) or 
             (copy[4] == le and copy[5] == le and copy[6] == le) or 
             (copy[1] == le and copy[2] == le and copy[3] == le) or 
@@ -91,7 +102,8 @@ class Board(object):
     
     def isSpaceFree(self,copy,move):
         return copy[move] == '-'
-       
+
+    #loop through the board append all the possible moves and return one move amongst randomly    
     def chooseRandomMoveFromList(self,copy,movesList):
         possibleMoves = []
         for i in movesList:
@@ -101,7 +113,39 @@ class Board(object):
             return random.choice(possibleMoves)
         else:
             return None
-   
+
+
+    #get a move from computer while playing with AI           
+    def getComputerMove(self,copy):
+        tempcopy = copy[:] #creating a local copy because (refrence updates the copy with each for loop and wrong checking is done) 
+        tempcopy = copy[:]
+        #this is for checking if the computer can win if he does move in particular cell
+        for i in range(1, 10):
+            if self.isSpaceFree(tempcopy, i):
+                tempcopy = self.makeMove(tempcopy, 'O', i)
+                if self.isWinner(tempcopy, 'O'):
+                    return i
+            tempcopy = copy[:]
+
+        #this is to check if the player will win in his next move, the computer will block this move    
+        for i in range(1, 10):
+            if self.isSpaceFree(tempcopy, i):
+                tempcopy = self.makeMove(tempcopy, 'X', i)
+                if self.isWinner(tempcopy, 'X'):
+                    return i
+            tempcopy = copy[:]
+
+        #select random move if both the checks donot return the move    
+
+        copy = self.getBoardCopy()    
+        move = self.chooseRandomMoveFromList(copy, [1, 3, 7, 9])
+        if move != None:
+            return move
+        if self.isSpaceFree(copy, 5): #center of the board
+            return 5
+        return self.chooseRandomMoveFromList(copy, [2, 4, 6, 8])
+       
+
     def isBoardFull(self,copy):
         for i in range(1, 10):
             if self.isSpaceFree(copy,i):
@@ -150,7 +194,12 @@ class Board(object):
         pygame.draw.rect(self.screen, self.color, pygame.Rect(280, 190, 10, 90))
         pygame.draw.rect(self.screen, self.color, pygame.Rect(190, 280, 100, 10)) 
 
+
     def nxt_turn1(self,position):  #Working on move input by player 1.
+
+    #while playing with AI this function is called to get the players and the commputer's move
+    def nxt_turn1(self,position):
+
         flag = self.isSpaceFree(self.getBoardCopy(),position)
         if flag:
             self.makeMove(0,'X',position)
@@ -168,7 +217,9 @@ class Board(object):
 
         return 'ongoing'
 
-    def nxt_turn2(self,position):   #Working on move input by player 2.
+
+    #while playing PvP mode this function is called to get both the player's move    
+    def nxt_turn2(self,position):
         flag = self.isSpaceFree(self.getBoardCopy(),position)
         if flag:
             if(self.marker == 'X'):
@@ -218,6 +269,11 @@ class Board(object):
         rect = text.get_rect()
         rect.center = (surface_size / 2, surface_size / 2)
         self.screen.blit(text, rect)
+        
+    '''    
+    The function calling is handled by pygame1.py file. 
+    This menu is just the graphical interface required for the same. Hence, no function calling done.
+    '''      
 
     def first_menu(self,x,y):       #The function calling is handled by pygame1.py file. This menu is just the graphical interface required for the same. Hence, no function calling done.
         self.screen.fill(self.white)
@@ -260,7 +316,9 @@ class Board(object):
         rect4.center = (150,245)
         self.screen.blit(text4, rect4) 
 
-    def last_menu(self,player,x,y):   #The function calling is handled by pygame1.py file. This menu is just the graphical interface required for the same. Hence, no function calling done.
+
+    #This menu is called after the game is over, it shows the result and ask whether the user wishes to play again or not
+    def last_menu(self,player,x,y):
         self.screen.fill(self.white)
         surface_size = self.screen.get_height()
         font = pygame.font.Font('freesansbold.ttf', surface_size/8)
@@ -277,15 +335,21 @@ class Board(object):
         rect2 = text2.get_rect()
         rect2.center = (surface_size/2,100)
         self.screen.blit(text2,rect2)
-
+    
+        text3 = font.render("Yes", True,self.black,self.green)
+        text4 = font.render("No", True,self.black,self.red)
+        
         if 125 > x > 25 and 275 > y > 200:
+            text3 = font.render("Yes", True,self.black,self.bright_green)
             pygame.draw.rect(self.screen, self.bright_green,(25,200,100,75))
         else:
             pygame.draw.rect(self.screen, self.green,(25,200,100,75))
         if 275 > x > 175 and 275 > y > 200:
+            text4 = font.render("No", True,self.black,self.bright_red)
             pygame.draw.rect(self.screen, self.bright_red,(175,200,100,75))
         else:
             pygame.draw.rect(self.screen, self.red,(175,200,100,75))
+
 
         text3 = font.render('Yes', True, self.black)
         rect3 = text3.get_rect()
@@ -351,3 +415,7 @@ class Board(object):
         rect4 = text4.get_rect()
         rect4.center = (225,237)
         self.screen.blit(text4,rect4)
+
+        self.screen.blit(text3, (40, 220))
+        self.screen.blit(text4, (200, 220))
+
